@@ -1,5 +1,6 @@
 {
   "queda_minima_pct": 3,
+  "resumo_a_cada_execucao": true,
   "produtos": [
     {
       "nome": "Kingston XS1000 1TB",
