@@ -1,0 +1,15 @@
+{
+  "queda_minima_pct": 3,
+  "produtos": [
+    {
+      "nome": "Kingston XS1000 1TB",
+      "preco_alvo": 400.00,
+      "faixa_valida": [150, 2000],
+      "ofertas": [
+        { "loja": "Amazon", "url": "COLE_AQUI_O_LINK_DA_AMAZON" },
+        { "loja": "KaBuM!", "url": "COLE_AQUI_O_LINK_DA_KABUM" },
+        { "loja": "Mercado Livre", "url": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE" }
+      ]
+    }
+  ]
+}
