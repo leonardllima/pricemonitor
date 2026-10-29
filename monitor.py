@@ -160,17 +160,34 @@ def extrair_preco(html_txt, url, faixa, seletor_custom=None):
     return None, None, f"preço não encontrado (título: '{titulo}' — possível bloqueio)"
 
 
-def baixar(url, tentativas=2):
+try:  # imita a conexão de um navegador real (passa por vários bloqueios anti-robô)
+    from curl_cffi import requests as navegador
+except ImportError:
+    navegador = None
+
+_sessao = None
+PERFIS = ["chrome", "safari", "edge"]
+
+
+def baixar(url, tentativas=3):
+    """Baixa a página. Usa curl_cffi (assinatura de navegador) e, se faltar, requests."""
+    global _sessao
     erro = ""
     for i in range(tentativas):
         try:
-            r = requests.get(url, headers=HEADERS, timeout=25)
+            if navegador:
+                if _sessao is None or i > 0:
+                    _sessao = navegador.Session(impersonate=PERFIS[i % len(PERFIS)])
+                r = _sessao.get(url, timeout=30, headers={
+                    "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8"})
+            else:
+                r = requests.get(url, headers=HEADERS, timeout=25)
             if r.status_code == 200:
                 return r.text, None
             erro = f"HTTP {r.status_code}"
-        except requests.RequestException as e:
+        except Exception as e:  # erros de rede de qualquer uma das bibliotecas
             erro = str(e)[:120]
-        time.sleep(3 + 4 * i)
+        time.sleep(4 + 5 * i)
     return None, erro
 
 
@@ -238,9 +255,29 @@ def montar_ranking(nome, coletas, agora):
             linhas.append(f"{i + 1}. {brl(c['preco'])} — {loja}  <i>(+{brl(dif)})</i>{seta}")
 
     for c in esgotadas:
-        linhas.append(f"⛔ {html.escape(c['loja'])} — esgotado (último: {brl(c['preco'])})")
+        linhas.append(f"⛔ {html.escape(c['loja'])} — esgotado")
     for c in falhas:
         linhas.append(f"⚠️ {html.escape(c['loja'])} — preço não capturado")
+    melhor = disponiveis[0] if disponiveis else None
+    return "\n".join(linhas), melhor
+
+
+def montar_comparativo(melhores, agora):
+    """Topo da mensagem: melhor preço de cada modelo, do mais barato ao mais caro."""
+    validos = sorted([(n, m) for n, m in melhores if m], key=lambda x: x[1]["preco"])
+    if len(melhores) < 2:
+        return None
+    linhas = [f"🏁 <b>COMPARATIVO GERAL</b>  <i>({agora[8:10]}/{agora[5:7]} {agora[11:]})</i>", ""]
+    for i, (nome, m) in enumerate(validos):
+        loja = f'<a href="{html.escape(m["url"])}">{html.escape(m["loja"])}</a>'
+        if i == 0:
+            linhas.append(f"🥇 <b>{html.escape(nome)} — {brl(m['preco'])}</b> ({loja})  ← MAIS BARATO")
+        else:
+            dif = m["preco"] - validos[0][1]["preco"]
+            linhas.append(f"{i + 1}. {html.escape(nome)} — {brl(m['preco'])} ({loja})  <i>(+{brl(dif)})</i>")
+    for nome, m in melhores:
+        if not m:
+            linhas.append(f"⛔ {html.escape(nome)} — sem oferta disponível")
     return "\n".join(linhas)
 
 
@@ -250,7 +287,7 @@ def main():
     resumo_sempre = cfg.get("resumo_a_cada_execucao", True)
     historico = ler_historico()
     agora = datetime.now(FUSO_BR).strftime("%Y-%m-%d %H:%M")
-    novas, alertas, rankings = [], [], []
+    novas, alertas, rankings, melhores = [], [], [], []
 
     for prod in cfg["produtos"]:
         nome = prod["nome"]
@@ -292,9 +329,12 @@ def main():
             if minimo_hist and preco < minimo_hist:
                 motivos.append(f"🥇 menor preço já registrado (anterior {brl(minimo_hist)})")
             if motivos:
-                alertas.append(f"<b>{html.escape(loja)}</b>: <b>{brl(preco)}</b>\n" + "\n".join(motivos))
+                alertas.append(f"<b>{html.escape(nome)}</b> — {html.escape(loja)}: <b>{brl(preco)}</b>\n"
+                               + "\n".join(motivos))
 
-        rankings.append(montar_ranking(nome, coletas, agora))
+        texto, melhor = montar_ranking(nome, coletas, agora)
+        rankings.append(texto)
+        melhores.append((nome, melhor))
 
     if novas:
         gravar(novas)
@@ -304,8 +344,20 @@ def main():
         partes = []
         if alertas:
             partes.append("🔔 <b>ALERTA DE PREÇO</b>\n\n" + "\n\n".join(alertas))
+        comparativo = montar_comparativo(melhores, agora)
+        if comparativo:
+            partes.append(comparativo)
         partes.extend(rankings)
-        telegram("\n\n━━━━━━━━━━━━\n\n".join(partes))
+        # Telegram aceita até 4096 caracteres por mensagem: agrupa as partes sem estourar
+        separador, bloco = "\n\n━━━━━━━━━━━━\n\n", ""
+        for parte in partes:
+            if bloco and len(bloco) + len(separador) + len(parte) > 3800:
+                telegram(bloco)
+                bloco = parte
+            else:
+                bloco = bloco + separador + parte if bloco else parte
+        if bloco:
+            telegram(bloco)
     if not novas:
         print("⚠ Nenhum preço coletado nesta execução.")
 
