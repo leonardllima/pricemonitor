@@ -191,6 +191,22 @@ def baixar(url, tentativas=3):
     return None, erro
 
 
+def baixar_via_leitor(url):
+    """Reserva: pede a página ao Jina Reader (servidores próprios, renderiza como navegador).
+    Gratuito sem chave (limite ~20 pedidos/min). Com o secret JINA_API_KEY o limite aumenta."""
+    cab = {"X-Return-Format": "html", "X-Timeout": "40", "Accept-Language": "pt-BR,pt;q=0.9"}
+    chave = os.getenv("JINA_API_KEY")
+    if chave:
+        cab["Authorization"] = f"Bearer {chave}"
+    try:
+        r = requests.get("https://r.jina.ai/" + url, headers=cab, timeout=60)
+        if r.status_code == 200 and len(r.text) > 500:
+            return r.text, None
+        return None, f"leitor HTTP {r.status_code}"
+    except requests.RequestException as e:
+        return None, f"leitor: {str(e)[:80]}"
+
+
 # ----------------------------------------------------------------- histórico
 def ler_historico():
     if not HISTORICO.exists():
@@ -256,8 +272,9 @@ def montar_ranking(nome, coletas, agora):
 
     for c in esgotadas:
         linhas.append(f"⛔ {html.escape(c['loja'])} — esgotado")
-    for c in falhas:
-        linhas.append(f"⚠️ {html.escape(c['loja'])} — preço não capturado")
+    if falhas:
+        nomes = ", ".join(html.escape(c["loja"]) for c in falhas)
+        linhas.append(f"<i>⚠️ Sem leitura agora: {nomes}</i>")
     melhor = disponiveis[0] if disponiveis else None
     return "\n".join(linhas), melhor
 
@@ -285,6 +302,7 @@ def main():
     cfg = json.loads(CONFIG.read_text(encoding="utf-8"))
     queda_pct = cfg.get("queda_minima_pct", 3)
     resumo_sempre = cfg.get("resumo_a_cada_execucao", True)
+    usar_leitor = cfg.get("usar_leitor_reserva", True)
     historico = ler_historico()
     agora = datetime.now(FUSO_BR).strftime("%Y-%m-%d %H:%M")
     novas, alertas, rankings, melhores = [], [], [], []
@@ -305,6 +323,16 @@ def main():
                 preco, disp, metodo = extrair_preco(pagina, url, faixa, oferta.get("seletor"))
             else:
                 preco, disp, metodo = None, None, erro
+
+            if preco is None and usar_leitor:
+                print(f"  ↪ {loja}: bloqueado direto ({metodo}); tentando pelo leitor...")
+                pagina, erro = baixar_via_leitor(url)
+                if pagina:
+                    preco, disp, metodo = extrair_preco(pagina, url, faixa, oferta.get("seletor"))
+                    if preco is not None:
+                        metodo += " pelo leitor"
+                else:
+                    metodo = erro
 
             ant = [float(h["preco"]) for h in historico
                    if h["url"] == url and h["disponivel"] == "1"]
