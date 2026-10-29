@@ -32,6 +32,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           ENVIAR_RESUMO: ${{ github.event.inputs.resumo }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}   # opcional
 
       - name: Salvar histórico no repositório
         run: |
