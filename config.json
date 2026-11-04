@@ -1,102 +1,68 @@
 {
+  "titulo": "SSDs externos 1TB",
+  "enviar_resumo": "se_mudar",
   "queda_minima_pct": 3,
-  "resumo_a_cada_execucao": true,
+  "margem_menor_preco_pct": 1,
   "usar_leitor_reserva": true,
   "produtos": [
     {
-      "nome": "Kingston XS1000 1TB",
-      "preco_alvo": 900.0,
-      "faixa_valida": [
-        300,
-        3000
-      ],
+      "nome": "Kingston XS1000",
+      "preco_alvo": 900.00,
+      "faixa_valida": [300, 3000],
       "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B0CCQB7BN7"
-        },
-        {
-          "loja": "Pichau",
-          "url": "https://www.pichau.com.br/ssd-externo-kingston-xs1000-1tb-usb-type-c-leitura-1050mb-s-gravacao-1000mb-s-preto-sxs1000-1000g"
-        },
-        {
-          "loja": "Terabyte",
-          "url": "https://www.terabyteshop.com.br/produto/28846/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-leitura-1050mbs-sxs10001000g"
-        },
-        {
-          "loja": "Mercado Livre",
-          "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-1050mbs/p/MLB26122922"
-        },
-        {
-          "loja": "Kingston Store",
-          "url": "https://www.kingstonstore.com.br/products/sxs1000-1000g"
-        }
+        { "loja": "KaBuM!", "url": "https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g" },
+        { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B0CCQB7BN7" },
+        { "loja": "Pichau", "url": "https://www.pichau.com.br/ssd-externo-kingston-xs1000-1tb-usb-type-c-leitura-1050mb-s-gravacao-1000mb-s-preto-sxs1000-1000g" },
+        { "loja": "Terabyte", "url": "https://www.terabyteshop.com.br/produto/28846/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-leitura-1050mbs-sxs10001000g" },
+        { "loja": "Mercado Livre", "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-1050mbs/p/MLB26122922" },
+        { "loja": "Kingston Store", "url": "https://www.kingstonstore.com.br/products/sxs1000-1000g" },
+        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/ssd-externo-portatil-kingston-1tb-usb-3-2-leitura-1-050mb-s-e-gravacao-1-050mb-s-sxs1000-1000g/p/bk1e9ejc81/in/ssdi/" },
+        { "loja": "Americanas", "url": "https://www.americanas.com.br/ssd-externo-1tb-type-c-3-2-kingston-xs1000-leitura-1050mb-s-gravacao-1000mb-s-sxs1000-1000g-kingston-7485262558/p" },
+        { "loja": "Casas Bahia", "url": "https://www.casasbahia.com.br/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g/p/1568548994" },
+        { "loja": "Carrefour", "url": "https://www.carrefour.com.br/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs10001000g-mp935151889/p" },
+        { "loja": "Shopee", "url": "" },
+        { "loja": "AliExpress", "url": "" }
       ]
     },
     {
-      "nome": "Crucial X9 1TB",
-      "preco_alvo": 900.0,
-      "faixa_valida": [
-        300,
-        3000
-      ],
+      "nome": "Crucial X9",
+      "preco_alvo": 900.00,
+      "faixa_valida": [300, 3000],
       "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B0CGW1FQV4"
-        }
+        { "loja": "KaBuM!", "url": "https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9" },
+        { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B0CGW1FQV4" },
+        { "loja": "Mercado Livre", "url": "" },
+        { "loja": "Magalu", "url": "" },
+        { "loja": "Shopee", "url": "" },
+        { "loja": "AliExpress", "url": "" }
       ]
     },
     {
-      "nome": "Samsung T7 1TB",
-      "preco_alvo": 900.0,
-      "faixa_valida": [
-        300,
-        3000
-      ],
+      "nome": "Samsung T7",
+      "preco_alvo": 900.00,
+      "faixa_valida": [300, 3000],
       "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B0874XN4D8"
-        },
-        {
-          "loja": "Pichau",
-          "url": "https://www.pichau.com.br/ssd-externo-samsung-t7-1tb-usb-3-2-cinza-mu-pc1t0t-ww"
-        }
+        { "loja": "KaBuM!", "url": "https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am" },
+        { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B0874XN4D8" },
+        { "loja": "Pichau", "url": "https://www.pichau.com.br/ssd-externo-samsung-t7-1tb-usb-3-2-cinza-mu-pc1t0t-ww" },
+        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/ssd-externo-samsung-t7-1tb-usb-3-2-mu-pc1t0t-am/p/gj70gk153h/in/ssdi/" },
+        { "loja": "Mercado Livre", "url": "" },
+        { "loja": "Shopee", "url": "" },
+        { "loja": "AliExpress", "url": "" }
       ]
     },
     {
-      "nome": "SanDisk Extreme 1TB",
-      "preco_alvo": 900.0,
-      "faixa_valida": [
-        300,
-        3000
-      ],
+      "nome": "SanDisk Extreme",
+      "preco_alvo": 900.00,
+      "faixa_valida": [300, 3000],
       "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-sdssde61-1t00-g25"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B08GTYFC37"
-        },
-        {
-          "loja": "Terabyte",
-          "url": "https://www.terabyteshop.com.br/produto/30545/ssd-externo-portatil-sandisk-extreme-1tb-usb-c-leitura-1050mbs-e-gravacao-1000mbs-black-sdssde61-1t00-g25"
-        }
+        { "loja": "KaBuM!", "url": "https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25" },
+        { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B08GTYFC37" },
+        { "loja": "Terabyte", "url": "https://www.terabyteshop.com.br/produto/30545/ssd-externo-portatil-sandisk-extreme-1tb-usb-c-leitura-1050mbs-e-gravacao-1000mbs-black-sdssde61-1t00-g25" },
+        { "loja": "Mercado Livre", "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-1tb-interface-usb-31-gen-2-sandisk-extreme-sdssde61-1t00-g25-velocidade-de-leitura-ate-1050mbs-preto/p/MLB17325054" },
+        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/disco-solido-externo-sandisk-extreme-sdssde61-1t00-g25-1tb/p/bfagada54f/in/ssdi/" },
+        { "loja": "Shopee", "url": "" },
+        { "loja": "AliExpress", "url": "" }
       ]
     }
   ]
