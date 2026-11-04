@@ -28,14 +28,19 @@ def meta(preco):
 class ColetorFalso(monitor.Coletor):
     """Coletor que responde a partir de um dicionário url -> preço (ou None = bloqueio)."""
 
-    def __init__(self, respostas, leitor=None, usar_leitor=True):
-        super().__init__(usar_leitor)
-        self.respostas, self.leitor = respostas, leitor or {}
-        self.chamadas_direto, self.chamadas_leitor = [], []
+    def __init__(self, respostas, leitor=None, usar_leitor=True, navegador=None, dominios_navegador=None):
+        super().__init__(usar_leitor, usar_navegador=navegador is not None,
+                         dominios_navegador=dominios_navegador)
+        self.respostas, self.leitor, self.nav = respostas, leitor or {}, navegador or {}
+        self.chamadas_direto, self.chamadas_leitor, self.chamadas_nav = [], [], []
 
     def _pagina(self, valor):
         if valor is None:
             return None, "HTTP 403"
+        if valor == 404:
+            return None, "HTTP 404"
+        if valor == "desafio":
+            return "<html><head><title>Just a moment...</title></head></html>", None
         if valor == "esgotado":
             return jsonld(0, "https://schema.org/OutOfStock"), None
         if isinstance(valor, tuple):
@@ -49,6 +54,10 @@ class ColetorFalso(monitor.Coletor):
     def baixar_via_leitor(self, url):
         self.chamadas_leitor.append(url)
         return self._pagina(self.leitor.get(url))
+
+    def baixar_via_navegador(self, url):
+        self.chamadas_nav.append(url)
+        return self._pagina(self.nav.get(url))
 
 
 def cfg_teste(alvo=900, ofertas=None):
@@ -155,6 +164,41 @@ class TestColetor(unittest.TestCase):
         c.coletar("https://a.com/2", FAIXA)
         c.coletar("https://a.com/3", FAIXA)
         self.assertNotIn("pulado", c.coletar("https://a.com/4", FAIXA)[2])
+
+    def test_navegador_resolve_desafio(self):
+        url = "https://www.pichau.com.br/x"
+        c = ColetorFalso({url: "desafio"}, usar_leitor=False, navegador={url: 899})
+        p, d, metodo = c.coletar(url, FAIXA)
+        self.assertEqual(p, 899.0)
+        self.assertIn("pelo navegador", metodo)
+
+    def test_navegador_antes_do_leitor(self):
+        url = "https://a.com/1"
+        c = ColetorFalso({}, leitor={url: 700}, navegador={url: 650})
+        self.assertEqual(c.coletar(url, FAIXA)[0], 650.0)
+        self.assertEqual(c.chamadas_leitor, [])
+
+    def test_navegador_so_nos_dominios_configurados(self):
+        c = ColetorFalso({}, usar_leitor=False, navegador={"https://outra.com/1": 500},
+                         dominios_navegador=["pichau.com.br"])
+        self.assertIsNone(c.coletar("https://outra.com/1", FAIXA)[0])
+        self.assertEqual(c.chamadas_nav, [])
+
+    def test_link_quebrado_nao_insiste(self):
+        url = "https://a.com/1"
+        c = ColetorFalso({url: 404}, leitor={url: 500}, navegador={url: 500})
+        p, d, motivo = c.coletar(url, FAIXA)
+        self.assertIsNone(p)
+        self.assertIn("404", motivo)
+        self.assertEqual(c.chamadas_nav + c.chamadas_leitor, [])
+
+    def test_navegador_continua_apos_bloqueio_direto(self):
+        urls = [f"https://www.terabyteshop.com.br/{i}" for i in range(4)]
+        c = ColetorFalso({}, usar_leitor=False, navegador={u: 900 + i for i, u in enumerate(urls)})
+        for u in urls:
+            self.assertIsNotNone(c.coletar(u, FAIXA)[0])
+        self.assertEqual(len(c.chamadas_direto), 2)   # para de tentar direto após 2 bloqueios
+        self.assertEqual(len(c.chamadas_nav), 4)
 
     def test_esgotado_nao_conta_como_falha(self):
         c = ColetorFalso({"https://a.com/1": "esgotado", "https://a.com/2": "esgotado", "https://a.com/3": 500})
