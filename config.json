@@ -1,6 +1,6 @@
 {
   "titulo": "SSDs externos 1TB",
-  "enviar_resumo": "se_mudar",
+  "enviar_resumo": "sempre",
   "queda_minima_pct": 3,
   "margem_menor_preco_pct": 1,
   "usar_leitor_reserva": false,
