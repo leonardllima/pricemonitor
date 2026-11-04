@@ -2,20 +2,25 @@ name: Monitor de preços
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # a cada 6 horas (horário UTC)
+    - cron: "0 */6 * * *"   # a cada 6 horas (horário UTC = 03h, 09h, 15h, 21h em Brasília)
   workflow_dispatch:
     inputs:
       resumo:
-        description: "Enviar resumo dos preços atuais no Telegram"
+        description: "Enviar a mensagem mesmo sem mudanças"
         type: boolean
         default: true
 
 permissions:
   contents: write
 
+concurrency:            # evita duas execuções ao mesmo tempo
+  group: monitor-precos
+  cancel-in-progress: false
+
 jobs:
   monitorar:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -26,13 +31,16 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      - name: Testes automáticos
+        run: python -m unittest discover -s tests -v
+
       - name: Coletar preços
         run: python monitor.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          ENVIAR_RESUMO: ${{ github.event.inputs.resumo }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}   # opcional
+          ENVIAR_RESUMO: ${{ github.event.inputs.resumo }}
 
       - name: Salvar histórico no repositório
         run: |
