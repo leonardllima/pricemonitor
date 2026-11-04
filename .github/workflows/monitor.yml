@@ -2,7 +2,7 @@ name: Monitor de preços
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # a cada 6 horas (horário UTC = 03h, 09h, 15h, 21h em Brasília)
+    - cron: "17 * * * *"   # a cada hora, no minuto 17
   workflow_dispatch:
     inputs:
       resumo:
