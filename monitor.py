@@ -5,7 +5,9 @@ Monitor de preços (GitHub Actions + Telegram)
 Fluxo de cada execução:
   1. Lê config.json (produtos, lojas, preço-alvo).
   2. Para cada oferta, baixa a página imitando um navegador (curl_cffi).
-     Se a loja bloquear, tenta pelo Jina Reader (leitor de reserva).
+     Se a loja bloquear, abre a página num Chrome real (Playwright), que resolve
+     desafios de JavaScript como o "Just a moment..." do Cloudflare.
+     Opcionalmente tenta ainda o Jina Reader (leitor de reserva).
      Se uma loja bloquear 2 links seguidos, ela é pulada no resto da execução.
   3. Extrai o preço (seletor próprio > JSON-LD > meta tags > seletores da loja).
   4. Grava em historico.csv e calcula alertas (alvo, queda %, menor preço já visto).
@@ -210,16 +212,19 @@ def extrair_preco(html_txt, url, faixa, seletor_custom=None):
 
 # ============================================================ coleta
 class Coletor:
-    """Baixa páginas com reserva pelo leitor e desiste de lojas que bloqueiam repetidamente."""
+    """Baixa páginas em camadas (direto -> Chrome real -> leitor) e desiste de lojas
+    que bloqueiam repetidamente na mesma execução."""
 
-    def __init__(self, usar_leitor=True):
+    def __init__(self, usar_leitor=True, usar_navegador=False, dominios_navegador=None):
         self.usar_leitor = usar_leitor
+        self.usar_navegador = usar_navegador
+        self.dominios_navegador = dominios_navegador or ["*"]
         self.sessao = None
+        self._pw = self._browser = self._contexto = None
         self.falhas_direto = Counter()   # falhas seguidas no acesso direto, por domínio
-        self.falhas_total = Counter()    # falhas seguidas (direto + leitor), por domínio
-        self.log = []
+        self.falhas_total = Counter()    # falhas seguidas em todas as camadas, por domínio
 
-    # ---- acesso bruto (substituível nos testes)
+    # ---- camada 1: acesso direto com assinatura de navegador
     def baixar(self, url, tentativas=2):
         erro = ""
         perfis = ["chrome", "safari"]
@@ -242,6 +247,55 @@ class Coletor:
             pausa(2 + 3 * i)
         return None, erro
 
+    # ---- camada 2: Chrome real (resolve desafios de JavaScript)
+    def baixar_via_navegador(self, url):
+        try:
+            if self._contexto is None:
+                from playwright.sync_api import sync_playwright
+                self._pw = sync_playwright().start()
+                self._browser = self._pw.chromium.launch(
+                    headless=True, args=["--disable-blink-features=AutomationControlled"])
+                versao = self._browser.version.split(".")[0]
+                self._contexto = self._browser.new_context(
+                    locale="pt-BR", timezone_id="America/Sao_Paulo",
+                    viewport={"width": 1366, "height": 768},
+                    user_agent=(f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                                f"(KHTML, like Gecko) Chrome/{versao}.0.0.0 Safari/537.36"))
+            pagina = self._contexto.new_page()
+            try:
+                resp = pagina.goto(url, wait_until="domcontentloaded", timeout=45000)
+                # dá até ~24 s para o desafio se resolver e o preço aparecer
+                for _ in range(12):
+                    titulo = (pagina.title() or "").lower()
+                    tem_preco = pagina.locator('script[type="application/ld+json"], '
+                                               'meta[itemprop="price"], '
+                                               'meta[property="product:price:amount"]').count() > 0
+                    if tem_preco and not any(m in titulo for m in PAGINA_BLOQUEIO):
+                        break
+                    pagina.wait_for_timeout(2000)
+                if resp is not None and resp.status == 404:
+                    return None, "HTTP 404"
+                return pagina.content(), None
+            finally:
+                pagina.close()
+        except ImportError:
+            self.usar_navegador = False
+            return None, "playwright não instalado"
+        except Exception as e:
+            return None, str(e).splitlines()[0][:90]
+
+    def fechar(self):
+        for obj in (self._contexto, self._browser):
+            try:
+                obj and obj.close()
+            except Exception:
+                pass
+        try:
+            self._pw and self._pw.stop()
+        except Exception:
+            pass
+
+    # ---- camada 3: leitor externo (Jina Reader)
     def baixar_via_leitor(self, url):
         cab = {"X-Return-Format": "html", "X-Timeout": "40", "Accept-Language": "pt-BR,pt;q=0.9"}
         if os.getenv("JINA_API_KEY"):
@@ -250,41 +304,47 @@ class Coletor:
             r = requests.get("https://r.jina.ai/" + url, headers=cab, timeout=60)
             if r.status_code == 200 and len(r.text) > 500:
                 return r.text, None
-            return None, f"leitor HTTP {r.status_code}"
+            return None, f"HTTP {r.status_code}"
         except requests.RequestException as e:
-            return None, f"leitor: {str(e)[:80]}"
+            return None, str(e)[:80]
 
     # ---- lógica
+    def _usa_navegador(self, dom):
+        return self.usar_navegador and any(d == "*" or d in dom for d in self.dominios_navegador)
+
     def coletar(self, url, faixa, seletor=None):
         dom = dominio(url)
         if self.falhas_total[dom] >= FALHAS_PARA_DESISTIR:
             return None, None, "pulado (loja bloqueou nesta execução)"
 
-        motivo = ""
+        camadas = []
         if self.falhas_direto[dom] < FALHAS_PARA_DESISTIR:
-            pagina, erro = self.baixar(url)
-            if pagina:
-                preco, disp, motivo = extrair_preco(pagina, url, faixa, seletor)
-                if preco is not None or disp is False:
-                    self.falhas_direto[dom] = self.falhas_total[dom] = 0
-                    return preco, disp, motivo
-            else:
-                motivo = erro
-            self.falhas_direto[dom] += 1
-
+            camadas.append(("direto", self.baixar))
+        if self._usa_navegador(dom):
+            camadas.append(("navegador", self.baixar_via_navegador))
         if self.usar_leitor:
-            pagina, erro = self.baixar_via_leitor(url)
+            camadas.append(("leitor", self.baixar_via_leitor))
+
+        motivos = []
+        for nome, funcao in camadas:
+            pagina, erro = funcao(url)
             if pagina:
                 preco, disp, m = extrair_preco(pagina, url, faixa, seletor)
                 if preco is not None or disp is False:
+                    if nome == "direto":
+                        self.falhas_direto[dom] = 0
                     self.falhas_total[dom] = 0
-                    return preco, disp, f"{m} pelo leitor"
-                motivo = f"{motivo} | leitor: {m}"
+                    return preco, disp, m if nome == "direto" else f"{m} pelo {nome}"
+                motivos.append(f"{nome}: {m}")
             else:
-                motivo = f"{motivo} | {erro}"
+                motivos.append(f"{nome}: {erro}")
+                if erro == "HTTP 404":   # link quebrado: não adianta insistir nas outras camadas
+                    break
+            if nome == "direto":
+                self.falhas_direto[dom] += 1
 
         self.falhas_total[dom] += 1
-        return None, None, motivo.strip(" |")
+        return None, None, " | ".join(motivos)
 
 
 # ============================================================ histórico
@@ -483,9 +543,13 @@ def main(caminho_config=None, caminho_historico=None, coletor=None):
     cfg = json.loads(Path(caminho_config or CONFIG).read_text(encoding="utf-8"))
     historico = ler_historico(caminho_historico)
     agora = datetime.now(FUSO_BR).strftime("%Y-%m-%d %H:%M")
-    coletor = coletor or Coletor(cfg.get("usar_leitor_reserva", True))
-
-    novas, blocos, tem_alerta, mudou = executar(cfg, historico, coletor, agora)
+    coletor = coletor or Coletor(cfg.get("usar_leitor_reserva", False),
+                                 cfg.get("usar_navegador_real", True),
+                                 cfg.get("dominios_navegador", ["*"]))
+    try:
+        novas, blocos, tem_alerta, mudou = executar(cfg, historico, coletor, agora)
+    finally:
+        coletor.fechar()
     if novas:
         gravar_historico(novas, caminho_historico)
 
