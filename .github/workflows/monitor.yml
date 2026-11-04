@@ -31,6 +31,9 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      - name: Instalar Chrome (para sites com desafio de JavaScript)
+        run: python -m playwright install --with-deps chromium
+
       - name: Testes automáticos
         run: python -m unittest discover -s tests -v
 
