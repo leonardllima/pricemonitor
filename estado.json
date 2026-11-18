@@ -34,7 +34,37 @@
           "url": "https://www.amazon.com.br/dp/B0GQZFN55Y"
         }
       ]
+    },
+    "Samsung T7 Shield": {
+      "atualizado": "2026-11-18 18:25",
+      "ofertas": []
+    },
+    "Samsung T9": {
+      "atualizado": "2026-11-18 18:25",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0CHFSWM2P"
+        }
+      ]
+    },
+    "SanDisk Extreme": {
+      "atualizado": "2026-11-18 18:25",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-"
+        },
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00"
+        },
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B08GTYFC37"
+        }
+      ]
     }
   },
-  "ultima_execucao": "2026-11-18 10:21"
+  "ultima_execucao": "2026-11-18 18:25"
 }
