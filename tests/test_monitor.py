@@ -35,6 +35,8 @@ class ColetorFalso(monitor.Coletor):
         self.chamadas_direto, self.chamadas_leitor, self.chamadas_nav = [], [], []
 
     def _pagina(self, valor):
+        if isinstance(valor, str) and valor.lstrip().startswith("<"):
+            return valor, None
         if valor is None:
             return None, "HTTP 403"
         if valor == 404:
@@ -309,11 +311,11 @@ class TestMensagem(unittest.TestCase):
         self.assertIn("🥈 <b>Modelo A</b>", self.txt)
 
     def test_linha_secundaria_limitada(self):
-        self.assertIn("+2", self.txt)  # 6 ofertas: 1 destaque + 3 listadas + "+2"
+        self.assertIn("+3", self.txt)  # 6 lojas: 1 destaque + 2 listadas + "+3"
         self.assertIn("(+50)", self.txt)
 
     def test_sem_estoque_e_falhas(self):
-        self.assertIn("⛔ <b>Modelo C</b>", self.txt)
+        self.assertIn("Sem estoque: Modelo C", self.txt)
         self.assertIn("Sem leitura: Bloq", self.txt)
 
     def test_cabecalho(self):
@@ -365,6 +367,8 @@ class TestTelegramEMain(unittest.TestCase):
                 self.assertEqual(post.call_args.kwargs["data"]["disable_notification"], "false")
             linhas = monitor.ler_historico(hist_path)
             self.assertEqual(len(linhas), 9)
+            self.assertTrue(Path(d, "estado.json").exists())
+            self.assertIn("ultima_execucao", json.loads(Path(d, "estado.json").read_text()))
 
     def test_envio_manual_forcado(self):
         with tempfile.TemporaryDirectory() as d:
