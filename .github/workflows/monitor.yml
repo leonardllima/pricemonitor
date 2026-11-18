@@ -2,11 +2,15 @@ name: Monitor de preços
 
 on:
   schedule:
-    - cron: "17 * * * *"   # a cada hora, no minuto 17
+    - cron: "17 * * * *"   # reserva: o GitHub pode atrasar/pular; o disparo principal vem do cron-job.org
   workflow_dispatch:
     inputs:
       resumo:
         description: "Enviar a mensagem mesmo sem mudanças"
+        type: boolean
+        default: true
+      forcar:
+        description: "Rodar mesmo se a última consulta foi há menos de 40 min"
         type: boolean
         default: true
 
@@ -19,25 +23,35 @@ concurrency:            # evita duas execuções ao mesmo tempo
 
 jobs:
   monitorar:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    runs-on: ubuntu-24.04     # fixo: o ubuntu-latest está migrando para o 26
+    timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-          cache: pip
 
-      - run: pip install -r requirements.txt
+      - name: Verificar intervalo desde a última consulta
+        id: intervalo
+        run: python intervalo.py
+        env:
+          FORCAR: ${{ github.event.inputs.forcar }}
+
+      - name: Instalar dependências
+        if: steps.intervalo.outputs.rodar == 'true'
+        run: pip install -r requirements.txt
 
       - name: Instalar Chrome (para sites com desafio de JavaScript)
+        if: steps.intervalo.outputs.rodar == 'true'
         run: python -m playwright install --with-deps chromium
 
       - name: Testes automáticos
+        if: steps.intervalo.outputs.rodar == 'true'
         run: python -m unittest discover -s tests -v
 
-      - name: Coletar preços
+      - name: Buscar e coletar preços
+        if: steps.intervalo.outputs.rodar == 'true'
         run: python monitor.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
@@ -45,11 +59,12 @@ jobs:
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}   # opcional
           ENVIAR_RESUMO: ${{ github.event.inputs.resumo }}
 
-      - name: Salvar histórico no repositório
+      - name: Salvar histórico e links descobertos
+        if: steps.intervalo.outputs.rodar == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add historico.csv 2>/dev/null || true
+          git add historico.csv estado.json 2>/dev/null || true
           if git diff --staged --quiet; then exit 0; fi
           git commit -m "Preços $(date -u '+%Y-%m-%d %H:%M')"
           for i in 1 2 3; do
