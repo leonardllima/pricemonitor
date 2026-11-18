@@ -2,27 +2,26 @@
 """
 Monitor de preços (GitHub Actions + Telegram)
 
-Fluxo de cada execução:
-  1. Lê config.json (produtos, lojas, preço-alvo).
-  2. Para cada oferta, baixa a página imitando um navegador (curl_cffi).
-     Se a loja bloquear, abre a página num Chrome real (Playwright), que resolve
-     desafios de JavaScript como o "Just a moment..." do Cloudflare.
-     Opcionalmente tenta ainda o Jina Reader (leitor de reserva).
-     Se uma loja bloquear 2 links seguidos, ela é pulada no resto da execução.
-  3. Extrai o preço (seletor próprio > JSON-LD > meta tags > seletores da loja).
-  4. Grava em historico.csv e calcula alertas (alvo, queda %, menor preço já visto).
-  5. Envia UMA mensagem compacta no Telegram (com som só se houver alerta).
+Cada execução:
+  1. DESCOBERTA (incremental): para alguns modelos por vez, busca o produto nas lojas
+     configuradas, valida pelo código do fabricante e guarda os links em estado.json.
+  2. CONSULTA: lê o preço de todos os links (fixos do config.json + descobertos).
+     Camadas de acesso: direto (assinatura TLS de navegador) -> Chrome real
+     (resolve desafios de JavaScript) -> Jina Reader (opcional).
+     Loja que bloqueia 2 vezes seguidas é pulada no resto da execução.
+  3. Grava historico.csv, calcula alertas e envia UMA mensagem compacta no Telegram.
 """
 import csv
 import html
 import json
 import os
 import re
+import sys
 import time
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import quote, quote_plus, unquote, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -35,10 +34,12 @@ except ImportError:  # pragma: no cover
 BASE = Path(__file__).parent
 CONFIG = BASE / "config.json"
 HISTORICO = BASE / "historico.csv"
+ESTADO = BASE / "estado.json"
 CAMPOS = ["data_hora", "produto", "loja", "preco", "disponivel", "url"]
 FUSO_BR = timezone(timedelta(hours=-3))
+FORMATO_DATA = "%Y-%m-%d %H:%M"
 LIMITE_TELEGRAM = 3900          # caracteres visíveis por mensagem (limite real: 4096)
-FALHAS_PARA_DESISTIR = 2        # links seguidos com falha antes de pular a loja
+FALHAS_PARA_DESISTIR = 2        # bloqueios seguidos antes de pular a loja
 ESPERA = 1.0                    # multiplicador das pausas (os testes usam 0)
 
 HEADERS = {
@@ -61,12 +62,19 @@ SELETORES_LOJA = {
     "americanas.": ['[data-testid="price-value"]', ".priceSales"],
     "casasbahia.": ['[data-testid="product-price-value"]', "#product-price"],
     "carrefour.": [".vtex-product-price-1-x-sellingPriceValue"],
-    "shopee.": ['[class*="pqTWkA"]', '[class*="G27FPf"]'],
-    "aliexpress.": ['[class*="price--currentPriceText"]', ".product-price-value"],
 }
 
+# Trechos de título que indicam página de bloqueio / desafio anti-robô
 PAGINA_BLOQUEIO = ("robot check", "just a moment", "attention required", "access denied",
-                   "captcha", "verifica", "are you a human", "mercado libre")
+                   "captcha", "are you a human", "mercado libre", "acesso bloqueado",
+                   "não é possível acessar", "nao e possivel acessar", "account verification",
+                   "verificação de segurança", "pardon our interruption")
+
+# Partes da página usadas para confirmar QUAL produto é (evita "produtos relacionados")
+SELETORES_IDENTIDADE = ["title", "h1", "#productTitle", "#productDetails_techSpec_section_1",
+                        "#productDetails_detailBullets_sections1", "#detailBullets_feature_div",
+                        "#productOverview_feature_div", 'meta[name="description"]',
+                        'meta[property="og:title"]']
 
 
 def pausa(segundos):
@@ -102,7 +110,6 @@ def brl(v):
 
 
 def brl_curto(v):
-    """1149.9 -> '1.150' (sem centavos, para as linhas secundárias)."""
     return f"{round(v):,}".replace(",", ".")
 
 
@@ -118,6 +125,17 @@ def texto_visivel(t):
     return html.unescape(re.sub(r"<[^>]+>", "", t))
 
 
+def compacto(texto):
+    """'MU-PC1T0T/AM  1 TB' -> 'mupc1t0tam1tb' (para comparar códigos e termos)."""
+    import unicodedata
+    t = unicodedata.normalize("NFKD", str(texto)).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]", "", t.lower())
+
+
+def agora_br():
+    return datetime.now(FUSO_BR).strftime(FORMATO_DATA)
+
+
 def _nos(obj):
     if isinstance(obj, dict):
         yield obj
@@ -128,15 +146,32 @@ def _nos(obj):
             yield from _nos(item)
 
 
-# ============================================================ extração
+def _jsonlds(soup):
+    for tag in soup.find_all("script", type="application/ld+json"):
+        try:
+            yield json.loads(tag.string or tag.get_text())
+        except (json.JSONDecodeError, TypeError):
+            continue
+
+
+def titulo_pagina(html_txt):
+    m = re.search(r"<title[^>]*>(.*?)</title>", html_txt or "", re.I | re.S)
+    return html.unescape(m.group(1)).strip() if m else ""
+
+
+def pagina_bloqueada(html_txt):
+    t = titulo_pagina(html_txt).lower()
+    if any(m in t for m in PAGINA_BLOQUEIO):
+        return True
+    # página vazia sem título nem dados de produto = desafio de JavaScript
+    return not t and "application/ld+json" not in (html_txt or "") and len(html_txt or "") < 20000
+
+
+# ============================================================ extração de preço
 def precos_jsonld(soup):
     """Retorna ([(preco, disponivel)], esgotado_sem_preco)."""
     achados, esgotado_sem_preco = [], False
-    for tag in soup.find_all("script", type="application/ld+json"):
-        try:
-            data = json.loads(tag.string or tag.get_text())
-        except (json.JSONDecodeError, TypeError):
-            continue
+    for data in _jsonlds(soup):
         for no in _nos(data):
             tipo = no.get("@type")
             tipos = tipo if isinstance(tipo, list) else [tipo]
@@ -171,10 +206,7 @@ META = ['meta[property="product:price:amount"]', 'meta[property="og:price:amount
 
 
 def extrair_preco(html_txt, url, faixa, seletor_custom=None):
-    """Retorna (preco, disponivel, metodo).
-    - preço encontrado: (float, True/False, metodo)
-    - esgotado sem preço: (None, False, 'esgotado')
-    - falha: (None, None, motivo)"""
+    """(float, disp, metodo) | (None, False, 'esgotado') | (None, None, motivo)."""
     soup = BeautifulSoup(html_txt, "html.parser")
     lo, hi = faixa
     ok = lambda p: p is not None and lo <= p <= hi
@@ -205,24 +237,103 @@ def extrair_preco(html_txt, url, faixa, seletor_custom=None):
     if esgotado_sem_preco:
         return None, False, "esgotado"
     titulo = (soup.title.get_text(strip=True) if soup.title else "")[:60]
-    if any(m in titulo.lower() for m in PAGINA_BLOQUEIO):
+    if pagina_bloqueada(html_txt):
         return None, None, f"bloqueado (página '{titulo}')"
     return None, None, f"preço não encontrado (título: '{titulo}')"
 
 
+# ============================================================ identidade do produto
+def texto_identidade(html_txt):
+    """Junta só as partes da página que descrevem O produto (título, ficha, JSON-LD do produto)."""
+    soup = BeautifulSoup(html_txt, "html.parser")
+    partes = []
+    for sel in SELETORES_IDENTIDADE:
+        for el in soup.select(sel)[:2]:
+            partes.append(el.get("content") or el.get_text(" ", strip=True))
+    for data in _jsonlds(soup):
+        for no in _nos(data):
+            tipo = no.get("@type")
+            tipos = tipo if isinstance(tipo, list) else [tipo]
+            if "Product" in tipos:
+                for k in ("name", "sku", "mpn", "model", "gtin13", "gtin12", "description"):
+                    if isinstance(no.get(k), (str, int)):
+                        partes.append(str(no[k]))
+                break
+    titulo = " ".join(partes[:3])
+    return " ".join(partes), titulo
+
+
+def termos_ok(texto, produto):
+    c = compacto(texto)
+    return (all(compacto(t) in c for t in produto.get("obrigatorias", []))
+            and not any(compacto(t) in c for t in produto.get("proibidas", [])))
+
+
+def candidato_ok(trecho, produto):
+    """Link de busca aceito se tem o código do fabricante ou os termos do modelo."""
+    c = compacto(trecho)
+    if any(compacto(t) in c for t in produto.get("proibidas", [])):
+        return False
+    if any(compacto(cod) in c for cod in produto.get("codigos", [])):
+        return True
+    return termos_ok(trecho, produto)
+
+
+def produto_confere(html_txt, produto):
+    """True se a página é do modelo certo: código do fabricante OU termos no título."""
+    tudo, titulo = texto_identidade(html_txt)
+    c = compacto(tudo)
+    if any(compacto(cod) in c for cod in produto.get("codigos", [])):
+        return True
+    return bool(produto.get("obrigatorias")) and termos_ok(titulo, produto)
+
+
+# ============================================================ busca nas lojas
+def montar_url_busca(modelo_url, termos):
+    return (modelo_url.replace("{mais}", quote_plus(termos))
+                      .replace("{hifen}", quote(re.sub(r"\s+", "-", termos.strip().lower())))
+                      .replace("{texto}", quote(termos)))
+
+
+def canonico(url_relativa, base):
+    url = urljoin(base, url_relativa)
+    asin = re.search(r"/dp/([A-Z0-9]{10})", url)
+    if asin and "amazon." in url:
+        return f"https://{urlparse(url).netloc}/dp/{asin.group(1)}"
+    return url.split("#")[0].split("?")[0]
+
+
+def extrair_candidatos(html_txt, loja_cfg, produto, limite=3):
+    """Acha links de produto na página de busca e filtra pelos termos do modelo."""
+    bruto = html.unescape(html_txt or "").replace("\\u002F", "/").replace("\\/", "/")
+    bruto = unquote(bruto)
+    vistos, candidatos = set(), []
+    for m in re.finditer(loja_cfg["padrao"], bruto, re.I):
+        trecho = m.group(0)
+        url = canonico(trecho, loja_cfg["base"])
+        if url in vistos:
+            continue
+        vistos.add(url)
+        if candidato_ok(trecho, produto):
+            candidatos.append(url)
+            if len(candidatos) >= limite:
+                break
+    return candidatos
+
+
 # ============================================================ coleta
 class Coletor:
-    """Baixa páginas em camadas (direto -> Chrome real -> leitor) e desiste de lojas
-    que bloqueiam repetidamente na mesma execução."""
+    """Obtém páginas em camadas (direto -> Chrome real -> leitor) com controle de bloqueio por loja."""
 
-    def __init__(self, usar_leitor=True, usar_navegador=False, dominios_navegador=None):
+    def __init__(self, usar_leitor=False, usar_navegador=False, dominios_navegador=None):
         self.usar_leitor = usar_leitor
         self.usar_navegador = usar_navegador
         self.dominios_navegador = dominios_navegador or ["*"]
         self.sessao = None
         self._pw = self._browser = self._contexto = None
-        self.falhas_direto = Counter()   # falhas seguidas no acesso direto, por domínio
-        self.falhas_total = Counter()    # falhas seguidas em todas as camadas, por domínio
+        self.falhas_direto = Counter()
+        self.falhas_total = Counter()
+        self.cache = {}
 
     # ---- camada 1: acesso direto com assinatura de navegador
     def baixar(self, url, tentativas=2):
@@ -242,7 +353,7 @@ class Coletor:
                 erro = f"HTTP {r.status_code}"
                 if r.status_code == 404:
                     break
-            except Exception as e:  # erros de rede de qualquer biblioteca
+            except Exception as e:
                 erro = str(e)[:100]
             pausa(2 + 3 * i)
         return None, erro
@@ -264,13 +375,11 @@ class Coletor:
             pagina = self._contexto.new_page()
             try:
                 resp = pagina.goto(url, wait_until="domcontentloaded", timeout=45000)
-                # dá até ~24 s para o desafio se resolver e o preço aparecer
-                for _ in range(12):
-                    titulo = (pagina.title() or "").lower()
-                    tem_preco = pagina.locator('script[type="application/ld+json"], '
-                                               'meta[itemprop="price"], '
-                                               'meta[property="product:price:amount"]').count() > 0
-                    if tem_preco and not any(m in titulo for m in PAGINA_BLOQUEIO):
+                for _ in range(12):   # até ~24 s para o desafio se resolver
+                    conteudo = pagina.content()
+                    if not pagina_bloqueada(conteudo) and (
+                            "application/ld+json" in conteudo or 'itemprop="price"' in conteudo
+                            or len(conteudo) > 150000):
                         break
                     pagina.wait_for_timeout(2000)
                 if resp is not None and resp.status == 404:
@@ -308,14 +417,20 @@ class Coletor:
         except requests.RequestException as e:
             return None, str(e)[:80]
 
-    # ---- lógica
+    # ---- motor genérico
     def _usa_navegador(self, dom):
         return self.usar_navegador and any(d == "*" or d in dom for d in self.dominios_navegador)
 
-    def coletar(self, url, faixa, seletor=None):
+    def bloqueada(self, url):
+        return self.falhas_total[dominio(url)] >= FALHAS_PARA_DESISTIR
+
+    def obter(self, url, aceitar):
+        """Tenta as camadas até `aceitar(html)` devolver (True, resultado, metodo).
+        Retorna (resultado|None, motivo). Só conta como bloqueio quando nenhuma camada
+        conseguiu uma página utilizável (erro de rede, 403, desafio anti-robô)."""
         dom = dominio(url)
-        if self.falhas_total[dom] >= FALHAS_PARA_DESISTIR:
-            return None, None, "pulado (loja bloqueou nesta execução)"
+        if self.bloqueada(url):
+            return None, "pulado (loja bloqueou nesta execução)"
 
         camadas = []
         if self.falhas_direto[dom] < FALHAS_PARA_DESISTIR:
@@ -325,29 +440,59 @@ class Coletor:
         if self.usar_leitor:
             camadas.append(("leitor", self.baixar_via_leitor))
 
-        motivos = []
+        motivos, so_bloqueios = [], True
         for nome, funcao in camadas:
             pagina, erro = funcao(url)
-            if pagina:
-                preco, disp, m = extrair_preco(pagina, url, faixa, seletor)
-                if preco is not None or disp is False:
+            if pagina and not pagina_bloqueada(pagina):
+                ok, resultado, metodo = aceitar(pagina)
+                if ok:
                     if nome == "direto":
                         self.falhas_direto[dom] = 0
                     self.falhas_total[dom] = 0
-                    return preco, disp, m if nome == "direto" else f"{m} pelo {nome}"
-                motivos.append(f"{nome}: {m}")
-            else:
-                motivos.append(f"{nome}: {erro}")
-                if erro == "HTTP 404":   # link quebrado: não adianta insistir nas outras camadas
-                    break
+                    return resultado, (metodo if nome == "direto" else f"{metodo} pelo {nome}")
+                so_bloqueios = False          # página normal, só sem o dado: tenta a próxima camada
+                motivos.append(f"{nome}: {metodo}")
+                continue
+            motivo = erro or f"bloqueado (página '{titulo_pagina(pagina)[:50]}')"
+            motivos.append(f"{nome}: {motivo}")
             if nome == "direto":
                 self.falhas_direto[dom] += 1
+            if erro == "HTTP 404":
+                so_bloqueios = False
+                break
 
-        self.falhas_total[dom] += 1
-        return None, None, " | ".join(motivos)
+        if so_bloqueios:
+            self.falhas_total[dom] += 1
+        return None, " | ".join(motivos)
+
+    # ---- preço de uma página de produto
+    def coletar(self, url, faixa, seletor=None, produto=None):
+        if url in self.cache:
+            return self.cache[url]
+
+        def aceitar(pagina):
+            if produto is not None and not produto_confere(pagina, produto):
+                return False, None, "produto não confere com o modelo"
+            p, d, m = extrair_preco(pagina, url, faixa, seletor)
+            if p is not None or d is False:
+                return True, (p, d), m
+            return False, None, m
+
+        resultado, metodo = self.obter(url, aceitar)
+        saida = (resultado[0], resultado[1], metodo) if resultado else (None, None, metodo)
+        self.cache[url] = saida
+        return saida
+
+    # ---- links de produto numa página de busca
+    def buscar(self, url_busca, loja_cfg, produto, limite=3):
+        def aceitar(pagina):
+            c = extrair_candidatos(pagina, loja_cfg, produto, limite)
+            return (True, c, f"{len(c)} candidato(s)") if c else (False, None, "nenhum produto compatível")
+        resultado, motivo = self.obter(url_busca, aceitar)
+        return resultado or [], motivo
 
 
-# ============================================================ histórico
+# ============================================================ histórico e estado
 def ler_historico(caminho=None):
     caminho = Path(caminho or HISTORICO)
     if not caminho.exists():
@@ -367,7 +512,6 @@ def gravar_historico(linhas, caminho=None):
 
 
 def ultimo_por_url(historico):
-    """url -> (preco, disponivel) da leitura mais recente."""
     ult = {}
     for h in historico:
         try:
@@ -377,16 +521,112 @@ def ultimo_por_url(historico):
     return ult
 
 
+def ler_estado(caminho=None):
+    caminho = Path(caminho or ESTADO)
+    try:
+        return json.loads(caminho.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def gravar_estado(estado, caminho=None):
+    Path(caminho or ESTADO).write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n",
+                                       encoding="utf-8")
+
+
+# ============================================================ descoberta automática
+def lojas_para(produto, lojas_busca):
+    marca = compacto(produto.get("marca", ""))
+    for loja in lojas_busca:
+        if loja.get("ativo") is False:
+            continue
+        marcas = [compacto(m) for m in loja.get("somente_marcas", [])]
+        if marcas and marca not in marcas:
+            continue
+        yield loja
+
+
+def modelos_a_descobrir(cfg, estado, agora):
+    desc = cfg.get("descoberta", {})
+    if not desc.get("ativa", True):
+        return []
+    validade = timedelta(hours=desc.get("validade_horas", 24))
+    agora_dt = datetime.strptime(agora, FORMATO_DATA)
+    registros = estado.get("descobertos", {})
+    vencidos = []
+    for p in cfg["produtos"]:
+        if not p.get("busca"):
+            continue
+        reg = registros.get(p["nome"])
+        quando = datetime.strptime(reg["atualizado"], FORMATO_DATA) if reg else datetime.min
+        if agora_dt - quando >= validade:
+            vencidos.append((quando, p))
+    vencidos.sort(key=lambda x: x[0])
+    return [p for _, p in vencidos[:desc.get("modelos_por_execucao", 2)]]
+
+
+def descobrir(cfg, estado, coletor, agora):
+    """Atualiza estado['descobertos'] para os modelos com descoberta vencida."""
+    desc = cfg.get("descoberta", {})
+    por_loja = desc.get("links_por_loja", 2)
+    candidatos_max = desc.get("candidatos_por_loja", 3)
+    registros = estado.setdefault("descobertos", {})
+    for produto in modelos_a_descobrir(cfg, estado, agora):
+        faixa = produto.get("faixa_valida", [1, 1_000_000])
+        achados = []
+        for loja in lojas_para(produto, cfg.get("lojas_busca", [])):
+            url_busca = montar_url_busca(loja["busca"], produto["busca"])
+            if coletor.bloqueada(url_busca):
+                print(f"🔎 {produto['nome']} | {loja['loja']}: pulado (loja bloqueou nesta execução)")
+                continue
+            candidatos, motivo = coletor.buscar(url_busca, loja, produto, candidatos_max)
+            validos = 0
+            for url in candidatos:
+                if validos >= por_loja:
+                    break
+                p, d, m = coletor.coletar(url, faixa, produto=produto)
+                if p is not None or d is False:
+                    achados.append({"loja": loja["loja"], "url": url})
+                    validos += 1
+                pausa(1)
+            print(f"🔎 {produto['nome']} | {loja['loja']}: {validos} link(s) válido(s) ({motivo})")
+            pausa(1)
+        anterior = registros.get(produto["nome"], {}).get("ofertas", [])
+        if not achados and anterior:
+            achados = anterior   # busca falhou: mantém os links que já funcionavam
+        registros[produto["nome"]] = {"atualizado": agora, "ofertas": achados}
+    return estado
+
+
+def ofertas_do_produto(produto, estado):
+    """Links fixos do config + links descobertos (sem repetir URL)."""
+    vistas, ofertas = set(), []
+    for o in produto.get("ofertas", []):
+        url = (o.get("url") or "").strip()
+        if url.startswith("http") and o.get("ativo") is not False and url not in vistas:
+            vistas.add(url)
+            ofertas.append({**o, "url": url, "fixa": True})
+    for o in estado.get("descobertos", {}).get(produto["nome"], {}).get("ofertas", []):
+        if o["url"] not in vistas:
+            vistas.add(o["url"])
+            ofertas.append({**o, "fixa": False})
+    return ofertas
+
+
 # ============================================================ telegram
-def telegram(texto, silencioso=False):
+def telegram(texto, silencioso=False, botoes=None):
     token, chat = os.getenv("TELEGRAM_TOKEN"), os.getenv("TELEGRAM_CHAT_ID")
     if not token or not chat:
         print("[Telegram não configurado — mensagem abaixo]\n" + texto_visivel(texto))
+        for linha in botoes or []:
+            print("  [botão] " + " | ".join(b["text"] for b in linha))
         return False
+    dados = {"chat_id": chat, "text": texto, "parse_mode": "HTML",
+             "disable_web_page_preview": "true", "disable_notification": "true" if silencioso else "false"}
+    if botoes:
+        dados["reply_markup"] = json.dumps({"inline_keyboard": botoes}, ensure_ascii=False)
     try:
-        r = requests.post(f"https://api.telegram.org/bot{token}/sendMessage", timeout=20, data={
-            "chat_id": chat, "text": texto, "parse_mode": "HTML",
-            "disable_web_page_preview": "true", "disable_notification": "true" if silencioso else "false"})
+        r = requests.post(f"https://api.telegram.org/bot{token}/sendMessage", timeout=20, data=dados)
         if r.status_code != 200:
             print(f"Falha no Telegram: HTTP {r.status_code} {r.text[:200]}")
             return False
@@ -397,7 +637,6 @@ def telegram(texto, silencioso=False):
 
 
 def dividir_mensagem(blocos, limite=LIMITE_TELEGRAM):
-    """Agrupa blocos em mensagens sem passar do limite de texto visível."""
     mensagens, atual = [], ""
     for b in blocos:
         candidato = f"{atual}\n\n{b}" if atual else b
@@ -415,8 +654,7 @@ def dividir_mensagem(blocos, limite=LIMITE_TELEGRAM):
 MEDALHAS = ["🥇", "🥈", "🥉"]
 
 
-def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=3):
-    """Mensagem compacta: alertas (se houver) + 1 linha por modelo + rodapé de falhas."""
+def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2):
     blocos = [f"📊 <b>{html.escape(titulo)}</b> · {agora[8:10]}/{agora[5:7]} {agora[11:16]}"]
 
     if alertas:
@@ -428,9 +666,18 @@ def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=3):
 
     com_preco, sem_estoque = [], []
     for r in resultados:
-        disp = sorted([o for o in r["ofertas"] if o["preco"] is not None and o["disp"]],
-                      key=lambda o: o["preco"])
-        (com_preco if disp else sem_estoque).append((r["nome"], disp))
+        melhores_por_loja = {}
+        for o in r["ofertas"]:
+            if o["preco"] is None or not o["disp"]:
+                continue
+            atual = melhores_por_loja.get(o["loja"])
+            if atual is None or o["preco"] < atual["preco"]:
+                melhores_por_loja[o["loja"]] = o
+        disp = sorted(melhores_por_loja.values(), key=lambda o: o["preco"])
+        if disp:
+            com_preco.append((r["nome"], disp))
+        elif r["ofertas"]:
+            sem_estoque.append(r["nome"])
     com_preco.sort(key=lambda x: x[1][0]["preco"])
 
     linhas = []
@@ -446,13 +693,13 @@ def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=3):
         linhas.append(f"{marca} <b>{html.escape(nome)}</b> — <b>{brl(melhor['preco'])}</b> · "
                       f"{link(melhor['loja'], melhor['url'])}{seta}{extra}")
         resto = ofertas[1:]
-        if resto:
+        if resto and outras_lojas:
             itens = [f"{link(o['loja'], o['url'])} {brl_curto(o['preco'])}" for o in resto[:outras_lojas]]
             if len(resto) > outras_lojas:
                 itens.append(f"+{len(resto) - outras_lojas}")
             linhas.append("      ↳ " + " · ".join(itens))
-    for nome, _ in sem_estoque:
-        linhas.append(f"⛔ <b>{html.escape(nome)}</b> — sem estoque nas lojas lidas")
+    if sem_estoque:
+        linhas.append("⛔ <i>Sem estoque: " + ", ".join(html.escape(n) for n in sem_estoque) + "</i>")
     if linhas:
         blocos.append("\n".join(linhas))
 
@@ -463,11 +710,64 @@ def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=3):
     return blocos
 
 
+# ============================================================ botões
+LIMITE_TEXTO_BOTAO = 60     # textos maiores ficam cortados na tela do celular
+MAX_BOTOES = 90             # o Telegram aceita até 100 botões por mensagem
+
+
+def texto_botao(prefixo, produto, preco, loja):
+    texto = f"{prefixo} {produto} · R$ {brl_curto(preco)} · {loja}"
+    if len(texto) > LIMITE_TEXTO_BOTAO:
+        texto = f"{prefixo} {produto} · R$ {brl_curto(preco)}"
+    return texto[:LIMITE_TEXTO_BOTAO]
+
+
+def montar_botoes(resultados, alertas, alternativas=0):
+    """1 botão por modelo (melhor oferta, na ordem do ranking) + botões das ofertas em alerta no topo.
+    `alternativas` > 0 acrescenta, na mesma linha, as próximas lojas mais baratas."""
+    linhas, usados = [], set()
+    for a in alertas:
+        if a["url"] in usados:
+            continue
+        usados.add(a["url"])
+        linhas.append([{"text": texto_botao(a["icones"], a["produto"], a["preco"], a["loja"]), "url": a["url"]}])
+
+    ranking = []
+    for r in resultados:
+        melhores = {}
+        for o in r["ofertas"]:
+            if o["preco"] is None or not o["disp"]:
+                continue
+            if o["loja"] not in melhores or o["preco"] < melhores[o["loja"]]["preco"]:
+                melhores[o["loja"]] = o
+        ofertas = sorted(melhores.values(), key=lambda o: o["preco"])
+        if ofertas:
+            ranking.append((r["nome"], ofertas))
+    ranking.sort(key=lambda x: x[1][0]["preco"])
+
+    for i, (nome, ofertas) in enumerate(ranking):
+        marca = MEDALHAS[i] if i < len(MEDALHAS) else f"{i + 1}."
+        melhor = ofertas[0]
+        linha = [{"text": texto_botao(marca, nome, melhor["preco"], melhor["loja"]), "url": melhor["url"]}]
+        for o in ofertas[1:1 + alternativas]:
+            linha.append({"text": f"{o['loja']} {brl_curto(o['preco'])}"[:LIMITE_TEXTO_BOTAO], "url": o["url"]})
+        linhas.append(linha)
+
+    total, saida = 0, []
+    for linha in linhas:
+        if total + len(linha) > MAX_BOTOES:
+            break
+        saida.append(linha)
+        total += len(linha)
+    return saida
+
+
 # ============================================================ execução
-def executar(cfg, historico, coletor, agora):
-    """Coleta tudo e devolve (novas_linhas, blocos_mensagem, tem_alerta, mudou)."""
+def executar(cfg, historico, coletor, agora, estado=None, extras=None):
+    """Consulta todos os links. Devolve (novas_linhas, blocos, tem_alerta, mudou)."""
+    estado = estado or {}
     queda_pct = cfg.get("queda_minima_pct", 3)
-    margem_minimo = cfg.get("margem_menor_preco_pct", 1)   # evita alerta por centavos
+    margem_minimo = cfg.get("margem_menor_preco_pct", 1)
     ult_url = ultimo_por_url(historico)
     novas, alertas, resultados, falhas = [], [], [], []
     mudou = False
@@ -480,22 +780,23 @@ def executar(cfg, historico, coletor, agora):
         minimo_hist = min(precos_hist) if precos_hist else None
         ofertas = []
 
-        for oferta in prod["ofertas"]:
-            url = (oferta.get("url") or "").strip()
-            if not url.startswith("http") or oferta.get("ativo") is False:
-                continue
-            loja = oferta["loja"]
-            preco, disp, metodo = coletor.coletar(url, faixa, oferta.get("seletor"))
+        for oferta in ofertas_do_produto(prod, estado):
+            url, loja = oferta["url"], oferta["loja"]
+            ja_em_cache = url in coletor.cache
+            preco, disp, metodo = coletor.coletar(url, faixa, oferta.get("seletor"),
+                                                  produto=None if oferta["fixa"] else prod)
             anterior = ult_url.get(url)
             ultimo_disp = anterior[0] if anterior and anterior[1] else None
             ofertas.append({"loja": loja, "url": url, "preco": preco, "disp": disp, "ultimo": ultimo_disp})
-            pausa(1.5)
+            if not ja_em_cache:
+                pausa(1.5)
 
             if preco is None and disp is None:
                 print(f"✗ {nome} | {loja}: {metodo}")
-                falhas.append(loja)
+                if "pulado" not in metodo or loja not in falhas:
+                    falhas.append(loja)
                 continue
-            if preco is None:  # esgotado sem preço publicado
+            if preco is None:
                 print(f"⛔ {nome} | {loja}: esgotado")
                 if anterior and anterior[1]:
                     mudou = True
@@ -525,7 +826,12 @@ def executar(cfg, historico, coletor, agora):
 
         resultados.append({"nome": nome, "ofertas": ofertas})
 
-    blocos = montar_mensagem(cfg.get("titulo", "Monitor de preços"), agora, resultados, alertas, falhas)
+    blocos = montar_mensagem(cfg.get("titulo", "Monitor de preços"), agora, resultados, alertas, falhas,
+                             cfg.get("outras_lojas_por_modelo", 2))
+    if extras is not None:
+        b = cfg.get("botoes", {"ativo": True})
+        extras["botoes"] = (montar_botoes(resultados, alertas, b.get("alternativas_por_modelo", 0))
+                            if b.get("ativo", True) else [])
     return novas, blocos, bool(alertas), mudou
 
 
@@ -539,17 +845,25 @@ def deve_enviar(modo, tem_alerta, mudou, forcar):
     return False  # "so_alertas"
 
 
-def main(caminho_config=None, caminho_historico=None, coletor=None):
+def main(caminho_config=None, caminho_historico=None, coletor=None, caminho_estado=None):
     cfg = json.loads(Path(caminho_config or CONFIG).read_text(encoding="utf-8"))
     historico = ler_historico(caminho_historico)
-    agora = datetime.now(FUSO_BR).strftime("%Y-%m-%d %H:%M")
+    if caminho_estado is None and caminho_historico is not None:
+        caminho_estado = Path(caminho_historico).with_name("estado.json")
+    estado = ler_estado(caminho_estado)
+    agora = agora_br()
     coletor = coletor or Coletor(cfg.get("usar_leitor_reserva", False),
                                  cfg.get("usar_navegador_real", True),
                                  cfg.get("dominios_navegador", ["*"]))
     try:
-        novas, blocos, tem_alerta, mudou = executar(cfg, historico, coletor, agora)
+        estado = descobrir(cfg, estado, coletor, agora)
+        extras = {}
+        novas, blocos, tem_alerta, mudou = executar(cfg, historico, coletor, agora, estado, extras)
     finally:
         coletor.fechar()
+
+    estado["ultima_execucao"] = agora
+    gravar_estado(estado, caminho_estado)
     if novas:
         gravar_historico(novas, caminho_historico)
 
@@ -557,14 +871,17 @@ def main(caminho_config=None, caminho_historico=None, coletor=None):
     modo = cfg.get("enviar_resumo", "se_mudar")
     enviado = False
     if deve_enviar(modo, tem_alerta, mudou, forcar):
-        for msg in dividir_mensagem(blocos):
-            enviado = telegram(msg, silencioso=not tem_alerta) or enviado
+        mensagens = dividir_mensagem(blocos)
+        for i, msg in enumerate(mensagens):
+            botoes = extras.get("botoes") if i == len(mensagens) - 1 else None
+            enviado = telegram(msg, silencioso=not tem_alerta, botoes=botoes) or enviado
     else:
         print(f"Sem mudanças — mensagem não enviada (modo '{modo}').")
 
     print(f"\nResumo: {len(novas)} preços lidos · alertas: {'sim' if tem_alerta else 'não'} · "
           f"mudou: {'sim' if mudou else 'não'}")
-    return {"novas": novas, "blocos": blocos, "alerta": tem_alerta, "mudou": mudou, "enviado": enviado}
+    return {"novas": novas, "blocos": blocos, "alerta": tem_alerta, "mudou": mudou,
+            "enviado": enviado, "estado": estado, "botoes": extras.get("botoes", [])}
 
 
 if __name__ == "__main__":
