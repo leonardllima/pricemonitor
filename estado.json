@@ -1,0 +1,40 @@
+{
+  "descobertos": {
+    "Kingston XS1000": {
+      "atualizado": "2026-11-18 10:21",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g"
+        },
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-"
+        },
+        {
+          "loja": "Kingston Store",
+          "url": "https://www.kingstonstore.com.br/products/sxs1000-1000g"
+        }
+      ]
+    },
+    "Kingston XS2000": {
+      "atualizado": "2026-11-18 10:21",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g"
+        }
+      ]
+    },
+    "Samsung T7": {
+      "atualizado": "2026-11-18 10:21",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0GQZFN55Y"
+        }
+      ]
+    }
+  },
+  "ultima_execucao": "2026-11-18 10:21"
+}
