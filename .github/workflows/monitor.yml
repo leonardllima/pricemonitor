@@ -2,7 +2,13 @@ name: Monitor de preços
 
 on:
   schedule:
-    - cron: "17 * * * *"   # reserva: o GitHub pode atrasar/pular; o disparo principal vem do cron-job.org
+    # De hora em hora. O agendamento do GitHub atrasa e às vezes PULA disparos,
+    # então são 3 por hora: o primeiro que chegar roda; os outros são ignorados
+    # pelo intervalo.py (mínimo de 45 min entre consultas, ver config.json).
+    # Horário em UTC; os minutos fogem do ":00", que é o horário mais congestionado.
+    - cron: "7 * * * *"
+    - cron: "27 * * * *"
+    - cron: "47 * * * *"
   workflow_dispatch:
     inputs:
       resumo:
@@ -10,7 +16,7 @@ on:
         type: boolean
         default: true
       forcar:
-        description: "Rodar mesmo se a última consulta foi há menos de 40 min"
+        description: "Rodar mesmo se a última consulta foi há menos de 45 min"
         type: boolean
         default: true
 
