@@ -1,7 +1,7 @@
 {
   "descobertos": {
     "Kingston XS1000": {
-      "atualizado": "2026-11-18 10:21",
+      "atualizado": "2026-11-19 10:40",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -18,7 +18,7 @@
       ]
     },
     "Kingston XS2000": {
-      "atualizado": "2026-11-18 10:21",
+      "atualizado": "2026-11-19 10:40",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -27,107 +27,10 @@
       ]
     },
     "Samsung T7": {
-      "atualizado": "2026-11-18 10:21",
-      "ofertas": [
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B0GQZFN55Y"
-        }
-      ]
-    },
-    "Samsung T7 Shield": {
-      "atualizado": "2026-11-18 18:25",
-      "ofertas": []
-    },
-    "Samsung T9": {
-      "atualizado": "2026-11-18 18:25",
-      "ofertas": [
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B0CHFSWM2P"
-        }
-      ]
-    },
-    "SanDisk Extreme": {
-      "atualizado": "2026-11-18 18:25",
-      "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-"
-        },
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B08GTYFC37"
-        }
-      ]
-    },
-    "SanDisk Extreme PRO": {
-      "atualizado": "2026-11-19 00:27",
-      "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B08GV9M64L"
-        }
-      ]
-    },
-    "SanDisk Portable": {
-      "atualizado": "2026-11-19 00:27",
-      "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26"
-        },
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B0C5JQ68FY"
-        },
-        {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B09NQJMW28"
-        },
-        {
-          "loja": "Terabyte",
-          "url": "https://www.terabyteshop.com.br/produto/42989/ssd-sandisk-optimus-gx-pro-8100-1tb-nvme-pcie-50-m2-2280-leitura-14900mbs-e-gravacao-11000mbs-sdsp82100tan-000e0"
-        },
-        {
-          "loja": "Terabyte",
-          "url": "https://www.terabyteshop.com.br/produto/43767/ssd-sandisk-optimus-gx-pro-850x-1tb-nvme-pcie-40-m2-2280-leitura-7300mbs-e-gravacao-6300mbs-com-dissipador-de-calor-sdsp81100tah-000e0"
-        }
-      ]
-    },
-    "Crucial X9": {
-      "atualizado": "2026-11-19 00:27",
-      "ofertas": []
-    },
-    "Crucial X9 Pro": {
-      "atualizado": "2026-11-19 10:01",
-      "ofertas": []
-    },
-    "Crucial X10 Pro": {
-      "atualizado": "2026-11-19 10:01",
-      "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9"
-        }
-      ]
-    },
-    "WD My Passport SSD": {
-      "atualizado": "2026-11-19 10:01",
+      "atualizado": "2026-11-19 10:40",
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-19 10:01"
+  "ultima_execucao": "2026-11-19 10:40",
+  "versao_descoberta": 2
 }
