@@ -15,7 +15,7 @@ def deve_rodar(agora=None, estado_path=BASE / "estado.json", config_path=BASE / 
     if forcar:
         return True, "execução forçada"
     try:
-        minimo = json.loads(Path(config_path).read_text(encoding="utf-8")).get("intervalo_minimo_min", 40)
+        minimo = json.loads(Path(config_path).read_text(encoding="utf-8")).get("intervalo_minimo_min", 45)
         ultima = json.loads(Path(estado_path).read_text(encoding="utf-8"))["ultima_execucao"]
     except (FileNotFoundError, KeyError, json.JSONDecodeError):
         return True, "sem registro da última execução"
