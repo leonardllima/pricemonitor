@@ -263,6 +263,33 @@ def texto_identidade(html_txt):
     return " ".join(partes), titulo
 
 
+# Regras globais: só SSD PORTÁTIL. Bloqueia SSD interno (M.2, SATA...) e acessórios (capas, estojos...)
+_RE_INTERNO = re.compile(r"\bm[\s.\-_]?2\b|\bsata\b|\b2280\b|\binterno\b|\binternal\b|"
+                         r"\bdissipador\b|\bheatsink\b|\bdesktop\b")
+_RE_ACESSORIO = re.compile(
+    r"\b(estojo|gaveta|enclosure|hub|dock)\b|"
+    r"\b(capa|case|bolsa|suporte|cabo|adaptador|protetor|pelicula)\b[\s\-_]+(\w+[\s\-_]+){0,2}(para|p|compativel|for)\b")
+_RE_PORTATIL = re.compile(r"\b(usb|extern[oa]s?|portat[ei]l|portateis|portable|external)\b")
+
+
+def normal(texto):
+    """Minúsculas sem acento, mantendo separadores (para regras por palavra)."""
+    import unicodedata
+    return unicodedata.normalize("NFKD", unquote(str(texto))).encode("ascii", "ignore").decode().lower()
+
+
+def eh_interno(texto):
+    return bool(_RE_INTERNO.search(normal(texto)))
+
+
+def eh_acessorio(texto):
+    return bool(_RE_ACESSORIO.search(normal(texto)))
+
+
+def eh_portatil(texto):
+    return bool(_RE_PORTATIL.search(normal(texto)))
+
+
 def termos_ok(texto, produto):
     c = compacto(texto)
     return (all(compacto(t) in c for t in produto.get("obrigatorias", []))
@@ -270,7 +297,10 @@ def termos_ok(texto, produto):
 
 
 def candidato_ok(trecho, produto):
-    """Link de busca aceito se tem o código do fabricante ou os termos do modelo."""
+    """Link de busca aceito se tem o código do fabricante ou os termos do modelo
+    (nunca SSD interno nem acessório)."""
+    if eh_interno(trecho) or eh_acessorio(trecho):
+        return False
     c = compacto(trecho)
     if any(compacto(t) in c for t in produto.get("proibidas", [])):
         return False
@@ -280,12 +310,16 @@ def candidato_ok(trecho, produto):
 
 
 def produto_confere(html_txt, produto):
-    """True se a página é do modelo certo: código do fabricante OU termos no título."""
+    """True se a página é do modelo certo E de um SSD portátil:
+    - título nunca pode indicar SSD interno (M.2, SATA...) nem acessório (capa, estojo...);
+    - aceita pelo código do fabricante, ou pelos termos do modelo + palavra de portátil no título."""
     tudo, titulo = texto_identidade(html_txt)
+    if eh_interno(titulo) or eh_acessorio(titulo):
+        return False
     c = compacto(tudo)
     if any(compacto(cod) in c for cod in produto.get("codigos", [])):
         return True
-    return bool(produto.get("obrigatorias")) and termos_ok(titulo, produto)
+    return bool(produto.get("obrigatorias")) and termos_ok(titulo, produto) and eh_portatil(titulo)
 
 
 # ============================================================ busca nas lojas
@@ -509,6 +543,30 @@ def gravar_historico(linhas, caminho=None):
         if novo:
             w.writeheader()
         w.writerows(linhas)
+
+
+def reescrever_historico(linhas, caminho=None):
+    caminho = Path(caminho or HISTORICO)
+    with caminho.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=CAMPOS, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(linhas)
+
+
+def aplicar_versao_regras(cfg, estado, historico):
+    """Quando as regras de busca mudam (descoberta.versao), descarta os links descobertos
+    antigos e apaga do histórico os preços desses links. Devolve o histórico limpo
+    quantas linhas foram removidas e se houve troca de versão."""
+    versao = cfg.get("descoberta", {}).get("versao", 1)
+    if estado.get("versao_descoberta") == versao:
+        return historico, 0, False
+    fixas = {(o.get("url") or "").strip() for p in cfg["produtos"] for o in p.get("ofertas", [])}
+    descartadas = {o["url"] for reg in estado.get("descobertos", {}).values()
+                   for o in reg.get("ofertas", [])} - fixas
+    estado["descobertos"] = {}
+    estado["versao_descoberta"] = versao
+    limpo = [h for h in historico if h.get("url") not in descartadas]
+    return limpo, len(historico) - len(limpo), True
 
 
 def ultimo_por_url(historico):
@@ -851,6 +909,11 @@ def main(caminho_config=None, caminho_historico=None, coletor=None, caminho_esta
     if caminho_estado is None and caminho_historico is not None:
         caminho_estado = Path(caminho_historico).with_name("estado.json")
     estado = ler_estado(caminho_estado)
+    historico, removidas, trocou = aplicar_versao_regras(cfg, estado, historico)
+    if removidas:
+        reescrever_historico(historico, caminho_historico)
+    if trocou:
+        print(f"♻️ Regras de busca atualizadas: links descobertos zerados, {removidas} preço(s) antigo(s) removido(s).")
     agora = agora_br()
     coletor = coletor or Coletor(cfg.get("usar_leitor_reserva", False),
                                  cfg.get("usar_navegador_real", True),
