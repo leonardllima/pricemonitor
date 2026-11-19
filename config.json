@@ -1,7 +1,7 @@
 {
   "titulo": "SSDs externos 1TB",
   "enviar_resumo": "sempre",
-  "intervalo_minimo_min": 40,
+  "intervalo_minimo_min": 45,
   "queda_minima_pct": 3,
   "margem_menor_preco_pct": 1,
   "outras_lojas_por_modelo": 2,
@@ -9,13 +9,7 @@
   "usar_navegador_real": true,
   "dominios_navegador": ["pichau.com.br", "terabyteshop.com.br", "kabum.com.br"],
   "usar_leitor_reserva": false,
-  "descoberta": {
-    "ativa": true,
-    "modelos_por_execucao": 3,
-    "validade_horas": 24,
-    "candidatos_por_loja": 3,
-    "links_por_loja": 2
-  },
+  "descoberta": { "ativa": true, "modelos_por_execucao": 3, "validade_horas": 24, "candidatos_por_loja": 3, "links_por_loja": 2, "versao": 2 },
   "lojas_busca": [
     {
       "loja": "KaBuM!",
@@ -190,8 +184,8 @@
       "faixa_valida": [300, 4000],
       "busca": "sandisk ssd portatil 1tb",
       "codigos": ["SDSSDE30-1T00"],
-      "obrigatorias": ["sandisk", "ssd", "1tb"],
-      "proibidas": ["extreme", "microsd", "pendrive", "ultra", "cartao", "2tb", "500gb", "4tb"],
+      "obrigatorias": ["sandisk", "1tb"],
+      "proibidas": ["extreme", "plus", "ultra", "microsd", "pendrive", "cartao", "2tb", "500gb", "4tb"],
       "ofertas": []
     },
     {
