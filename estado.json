@@ -1,7 +1,7 @@
 {
   "descobertos": {
     "Kingston XS1000": {
-      "atualizado": "2026-11-19 10:40",
+      "atualizado": "2026-11-20 17:44",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -18,7 +18,7 @@
       ]
     },
     "Kingston XS2000": {
-      "atualizado": "2026-11-19 10:40",
+      "atualizado": "2026-11-20 17:44",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -27,7 +27,7 @@
       ]
     },
     "Samsung T7": {
-      "atualizado": "2026-11-19 10:40",
+      "atualizado": "2026-11-20 17:44",
       "ofertas": []
     },
     "Samsung T7 Shield": {
@@ -121,6 +121,6 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-20 10:14",
+  "ultima_execucao": "2026-11-20 17:44",
   "versao_descoberta": 2
 }
