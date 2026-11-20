@@ -102,8 +102,25 @@
     "Crucial X9": {
       "atualizado": "2026-11-20 00:11",
       "ofertas": []
+    },
+    "Crucial X9 Pro": {
+      "atualizado": "2026-11-20 09:14",
+      "ofertas": []
+    },
+    "Crucial X10 Pro": {
+      "atualizado": "2026-11-20 09:14",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9"
+        }
+      ]
+    },
+    "WD My Passport SSD": {
+      "atualizado": "2026-11-20 09:14",
+      "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-20 00:11",
+  "ultima_execucao": "2026-11-20 09:14",
   "versao_descoberta": 2
 }
