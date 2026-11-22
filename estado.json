@@ -1,7 +1,7 @@
 {
   "descobertos": {
     "Kingston XS1000": {
-      "atualizado": "2026-11-21 19:25",
+      "atualizado": "2026-11-22 20:52",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -18,16 +18,20 @@
       ]
     },
     "Kingston XS2000": {
-      "atualizado": "2026-11-21 19:25",
+      "atualizado": "2026-11-22 20:52",
       "ofertas": [
         {
           "loja": "KaBuM!",
           "url": "https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g"
+        },
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B09F5YHQ1K"
         }
       ]
     },
     "Samsung T7": {
-      "atualizado": "2026-11-21 19:25",
+      "atualizado": "2026-11-22 20:52",
       "ofertas": []
     },
     "Samsung T7 Shield": {
@@ -121,6 +125,6 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-22 18:55",
+  "ultima_execucao": "2026-11-22 20:52",
   "versao_descoberta": 2
 }
