@@ -32,14 +32,11 @@ class TestLayout(unittest.TestCase):
 
     def test_secoes_numeradas_e_recomendacao_depois(self):
         txt = mensagem(RES)
-        self.assertIn("💾 1TB:\n\n1. B 1TB — R$ 900,00", txt)
-        self.assertIn("2. A 1TB — R$ 1.000,00", txt)
-        self.assertIn("3. C 1TB — R$ 1.100,00", txt)
-        self.assertIn("💾 500GB:\n\n1. D 500GB — R$ 450,00", txt)
-        self.assertIn("3. E 500GB — R$ 700,00", txt)
-        self.assertLess(txt.index("1TB:"), txt.index("500GB:"))
-        self.assertLess(txt.index("500GB:"), txt.index("CUSTO-BENEFÍCIO"))
-        self.assertLess(txt.index("CUSTO-BENEFÍCIO"), txt.index("Recomendação"))
+        self.assertIn("💾 1TB\n1. B · R$ 900 · Loja\n2. A · R$ 1.000 · Loja\n3. C · R$ 1.100 · Loja", txt)
+        self.assertIn("💾 500GB\n1. D · R$ 450 · Loja\n2. A · R$ 600 · Loja\n3. E · R$ 700 · Loja", txt)
+        self.assertLess(txt.index("💾 1TB"), txt.index("💾 500GB"))
+        self.assertLess(txt.index("💾 500GB"), txt.index("MELHOR CUSTO-BENEFÍCIO"))
+        self.assertLess(txt.index("MELHOR CUSTO-BENEFÍCIO"), txt.index("500GB OU 1TB?"))
         self.assertNotIn("🥇", txt)
 
     def test_sem_lojas_alternativas(self):
@@ -67,14 +64,14 @@ class TestFaixaAlvo(unittest.TestCase):
     def test_na_faixa(self):
         _, txt, alerta, botoes = self.rodar(850)
         self.assertTrue(alerta)
-        self.assertIn("🎯 M 1TB · L R$ 850,00 — na faixa-alvo 799–899", txt)
+        self.assertIn("🎯 M 1TB · R$ 850 na L — na faixa 799–899", txt)
         self.assertTrue(botoes[0][0]["text"].startswith("🎯 M 1TB · R$ 850"))
         self.assertEqual(botoes[1][0]["text"], "1. M 1TB · R$ 850 · L")
 
     def test_abaixo_da_faixa(self):
         _, txt, alerta, _ = self.rodar(749)
         self.assertTrue(alerta)
-        self.assertIn("abaixo da faixa-alvo 799–899", txt)
+        self.assertIn("🎯 M 1TB · R$ 749 na L — abaixo da faixa 799–899", txt)
 
     def test_acima_da_faixa_nao_alerta(self):
         self.assertFalse(self.rodar(950)[2])
@@ -105,8 +102,8 @@ class TestUmAlertaPorModelo(unittest.TestCase):
                                                 AGORA, {}, extras)
         txt = monitor.texto_visivel("\n".join(blocos))
         self.assertTrue(alerta)
-        self.assertEqual(txt.count("M 500GB · L"), 1)
-        self.assertIn("M 500GB · L1 R$ 450,00", txt)
+        self.assertEqual(txt.count(" na L"), 1)               # 1 linha de alerta só
+        self.assertIn("M 500GB · R$ 450 na L1", txt)
         self.assertIn("🎯", txt)
         self.assertIn("📉", txt)
         self.assertEqual(sum(1 for b in extras["botoes"] if "450" in b[0]["text"] and b[0]["text"][0] != "1"), 1)
