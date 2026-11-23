@@ -35,7 +35,7 @@
       "ofertas": []
     },
     "Samsung T7 Shield": {
-      "atualizado": "2026-11-21 23:40",
+      "atualizado": "2026-11-22 23:55",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -44,7 +44,7 @@
       ]
     },
     "Samsung T9": {
-      "atualizado": "2026-11-21 23:40",
+      "atualizado": "2026-11-22 23:55",
       "ofertas": [
         {
           "loja": "Amazon",
@@ -53,7 +53,7 @@
       ]
     },
     "SanDisk Extreme": {
-      "atualizado": "2026-11-21 23:40",
+      "atualizado": "2026-11-22 23:55",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -125,6 +125,6 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-22 22:36",
+  "ultima_execucao": "2026-11-22 23:55",
   "versao_descoberta": 2
 }
