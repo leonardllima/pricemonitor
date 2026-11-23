@@ -34,8 +34,43 @@
           "url": "https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield"
         }
       ]
+    },
+    "SanDisk Portable": {
+      "atualizado": "2026-11-23 13:46",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26"
+        },
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0C5JQ68FY"
+        }
+      ]
+    },
+    "SanDisk Portable V3": {
+      "atualizado": "2026-11-23 13:46",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0H4H1SNMY"
+        }
+      ]
+    },
+    "SanDisk Extreme V3": {
+      "atualizado": "2026-11-23 13:46",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0GMWYYRQL"
+        }
+      ]
+    },
+    "Samsung T7 500GB": {
+      "atualizado": "2026-11-23 13:46",
+      "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-23 13:36",
+  "ultima_execucao": "2026-11-23 13:46",
   "versao_descoberta": 3
 }
