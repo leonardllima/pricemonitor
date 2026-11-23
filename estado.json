@@ -69,8 +69,44 @@
     "Samsung T7 500GB": {
       "atualizado": "2026-11-23 13:46",
       "ofertas": []
+    },
+    "SanDisk Portable E10 500GB": {
+      "atualizado": "2026-11-23 13:58",
+      "ofertas": [
+        {
+          "loja": "Terabyte",
+          "url": "https://www.terabyteshop.com.br/produto/42347/ssd-externo-portatil-sandisk-500gb-usb-c-leitura-600mbs-sdssde10-500g-g25"
+        }
+      ]
+    },
+    "SanDisk Portable V3 500GB": {
+      "atualizado": "2026-11-23 13:58",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0H4HKMBB4"
+        }
+      ]
+    },
+    "SanDisk Extreme 500GB": {
+      "atualizado": "2026-11-23 13:58",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B08GTXVG9P"
+        }
+      ]
+    },
+    "SanDisk Extreme V3 500GB": {
+      "atualizado": "2026-11-23 13:58",
+      "ofertas": [
+        {
+          "loja": "Terabyte",
+          "url": "https://www.terabyteshop.com.br/produto/43774/ssd-externo-portatil-sandisk-extreme-500gb-usb-c-leitura-2000mbs-sdssde70-500g-g25"
+        }
+      ]
     }
   },
-  "ultima_execucao": "2026-11-23 13:46",
+  "ultima_execucao": "2026-11-23 13:58",
   "versao_descoberta": 3
 }
