@@ -621,7 +621,17 @@ def modelos_a_descobrir(cfg, estado, agora):
         quando = datetime.strptime(reg["atualizado"], FORMATO_DATA) if reg else datetime.min
         if agora_dt - quando >= validade:
             vencidos.append((quando, p))
-    vencidos.sort(key=lambda x: x[0])
+    # Prioridade: nunca buscado primeiro; depois 500GB e os 1TB que formam par com eles
+    # (precisam de preço para o comparativo); por último quem já tem links fixos no config.
+    pares = {p.get("par_1tb") for p in cfg["produtos"] if p.get("par_1tb")}
+
+    def prioridade(item):
+        quando, p = item
+        do_comparativo = (p.get("capacidade_gb") or 1000) < 1000 or p["nome"] in pares
+        tem_fixas = any((o.get("url") or "").strip() and o.get("ativo") is not False for o in p.get("ofertas", []))
+        return (quando, 0 if do_comparativo else 1, 1 if tem_fixas else 0)
+
+    vencidos.sort(key=prioridade)
     return [p for _, p in vencidos[:desc.get("modelos_por_execucao", 2)]]
 
 
@@ -754,18 +764,22 @@ def ranking_modelos(resultados):
     return com_preco, sem_estoque
 
 
-def secoes(com_preco):
-    """Agrupa por capacidade (maior primeiro). Sem capacidade informada = uma seção só."""
-    caps = sorted({m.get("cap") or 0 for m in com_preco}, reverse=True)
+def secoes(com_preco, capacidades=None):
+    """Agrupa por capacidade (maior primeiro). Sem capacidade informada = uma seção só.
+    `capacidades` força seções mesmo sem preço (ex.: 500GB ainda sem leitura)."""
+    caps = sorted({m.get("cap") or 0 for m in com_preco} | set(capacidades or []), reverse=True)
     return [(cap, [m for m in com_preco if (m.get("cap") or 0) == cap]) for cap in caps]
 
 
-def custo_beneficio(com_preco):
+def custo_beneficio(com_preco, capacidades=None):
     """Compara cada 500GB com o 1TB do mesmo modelo e indica o melhor custo-benefício.
-    Devolve (linhas_html, resumo_dict). Só atua quando os modelos têm capacidade informada."""
+    Devolve (linhas_html, resumo_dict). Só atua quando há mais de uma capacidade
+    (com preço, ou configurada em `capacidades`)."""
     modelos = [m for m in com_preco if m.get("cap")]
-    if len({m["cap"] for m in modelos}) < 2:
+    if len({m["cap"] for m in modelos} | set(capacidades or [])) < 2:
         return [], {}
+    if not modelos:
+        return ["💡 <b>CUSTO-BENEFÍCIO</b>", "<i>Aguardando os primeiros preços para comparar.</i>"], {}
     por_nome = {m["nome"]: m for m in modelos}
     for m in modelos:
         m["preco"] = m["ofertas_ok"][0]["preco"]
@@ -837,11 +851,22 @@ def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2, 
         blocos.append("\n".join(linhas))
 
     com_preco, sem_estoque = ranking_modelos(resultados)
-    grupos = secoes(com_preco)
+    capacidades = {r.get("cap") for r in resultados if r.get("cap")}
+    capacidades = capacidades if len(capacidades) > 1 else set()
+    grupos = secoes(com_preco, capacidades)
     for cap, modelos in grupos:
         linhas = []
         if len(grupos) > 1:
             linhas.append(f"💾 <b>{rotulo_capacidade(cap)}:</b>\n")
+        sem_est_cap = [m for m in sem_estoque if (m.get("cap") or 0) == cap] if len(grupos) > 1 else []
+        if not modelos:
+            sem_link = [r for r in resultados if (r.get("cap") or 0) == cap and not r["ofertas"]]
+            linhas.append("<i>Sem preço nesta consulta"
+                          + (" — busca dos links em andamento." if sem_link else ".") + "</i>")
+            if sem_est_cap:
+                linhas.append("⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_est_cap) + "</i>")
+            blocos.append("\n".join(linhas))
+            continue
         menor = modelos[0]["ofertas_ok"][0]["preco"]
         for i, m in enumerate(modelos):
             ofertas = m["ofertas_ok"]
@@ -860,15 +885,17 @@ def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2, 
                 if len(resto) > outras_lojas:
                     itens.append(f"+{len(resto) - outras_lojas}")
                 linhas.append("      ↳ " + " · ".join(itens))
+        if sem_est_cap:
+            linhas.append("⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_est_cap) + "</i>")
         blocos.append("\n".join(linhas))
-    if sem_estoque:
+    if sem_estoque and len(grupos) <= 1:
         txt = "⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_estoque) + "</i>"
         if grupos:
             blocos[-1] += "\n" + txt
         else:
             blocos.append(txt)
 
-    cb, _ = custo_beneficio(com_preco)
+    cb, _ = custo_beneficio(com_preco, capacidades)
     if cb:
         blocos.append("\n".join(cb))
 
