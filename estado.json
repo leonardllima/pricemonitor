@@ -105,8 +105,98 @@
           "url": "https://www.terabyteshop.com.br/produto/43774/ssd-externo-portatil-sandisk-extreme-500gb-usb-c-leitura-2000mbs-sdssde70-500g-g25"
         }
       ]
+    },
+    "Kingston XS2000 500GB": {
+      "atualizado": "2026-11-23 14:22",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/332882/ssd-kingston-xs2000-500gb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-500g"
+        },
+        {
+          "loja": "Terabyte",
+          "url": "https://www.terabyteshop.com.br/produto/21581/ssd-externo-portail-kingston-xs2000-500gb-usb-32-leitura-2000mbs-sxs2000500g"
+        }
+      ]
+    },
+    "SanDisk Extreme": {
+      "atualizado": "2026-11-23 14:22",
+      "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00"
+        },
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B08GTYFC37"
+        }
+      ]
+    },
+    "SanDisk Portable E10": {
+      "atualizado": "2026-11-23 14:22",
+      "ofertas": [
+        {
+          "loja": "Terabyte",
+          "url": "https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25"
+        }
+      ]
+    },
+    "Samsung T9": {
+      "atualizado": "2026-11-23 14:22",
+      "ofertas": [
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B0CHFSWM2P"
+        }
+      ]
     }
   },
-  "ultima_execucao": "2026-11-23 13:58",
-  "versao_descoberta": 3
+  "ultima_execucao": "2026-11-23 14:22",
+  "versao_descoberta": 3,
+  "lojas": {
+    "mercadolivre.com.br": {
+      "falhas_seguidas": 0,
+      "reincidente": false
+    },
+    "casasbahia.com.br": {
+      "falhas_seguidas": 1
+    },
+    "kingstonstore.com.br": {
+      "falhas_seguidas": 0,
+      "reincidente": false
+    },
+    "carrefour.com.br": {
+      "falhas_seguidas": 1
+    },
+    "submarino.com.br": {
+      "falhas_seguidas": 1
+    },
+    "lista.mercadolivre.com.br": {
+      "falhas_seguidas": 1
+    },
+    "magazineluiza.com.br": {
+      "falhas_seguidas": 1
+    },
+    "kabum.com.br": {
+      "falhas_seguidas": 0,
+      "reincidente": false
+    },
+    "terabyteshop.com.br": {
+      "falhas_seguidas": 0,
+      "reincidente": false
+    },
+    "girafa.com.br": {
+      "falhas_seguidas": 1
+    },
+    "amazon.com.br": {
+      "falhas_seguidas": 0,
+      "reincidente": false
+    },
+    "pontofrio.com.br": {
+      "falhas_seguidas": 1
+    },
+    "extra.com.br": {
+      "falhas_seguidas": 1
+    }
+  }
 }
