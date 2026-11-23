@@ -312,7 +312,7 @@ class TestMensagem(unittest.TestCase):
 
     def test_linha_secundaria_limitada(self):
         self.assertIn("+3", self.txt)  # 6 lojas: 1 destaque + 2 listadas + "+3"
-        self.assertIn("(+50)", self.txt)
+        self.assertIn("<b>R$ 950</b>", self.txt)
 
     def test_sem_estoque_e_falhas(self):
         self.assertIn("Sem estoque: Modelo C", self.txt)
