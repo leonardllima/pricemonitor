@@ -613,9 +613,6 @@ data_hora,produto,loja,preco,disponivel,url
 2026-11-19 10:40,Kingston XS1000,KaBuM!,1099.99,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-19 10:40,Kingston XS1000,Amazon,1220.75,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-19 10:40,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-19 10:40,Kingston XS1000,KaBuM!,1099.99,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-19 10:40,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-19 10:40,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-19 10:40,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-19 10:40,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
 2026-11-19 10:40,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
@@ -624,519 +621,196 @@ data_hora,produto,loja,preco,disponivel,url
 2026-11-19 18:49,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-19 18:49,Kingston XS1000,Amazon,1220.75,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-19 18:49,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-19 18:49,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-19 18:49,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-19 18:49,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-19 18:49,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-19 18:49,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-19 18:49,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-19 18:49,Samsung T9,Amazon,1799.10,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-19 18:49,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-19 18:49,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-19 18:49,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-19 18:49,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
 2026-11-19 18:49,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
 2026-11-20 00:11,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-20 00:11,Kingston XS1000,Amazon,1220.75,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-20 00:11,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-20 00:11,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-20 00:11,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-20 00:11,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-20 00:11,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-20 00:11,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-20 00:11,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-20 00:11,Samsung T9,Amazon,1799.10,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-20 00:11,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-20 00:11,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-20 00:11,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-20 00:11,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-20 00:11,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-20 00:11,SanDisk Extreme PRO,Amazon,2048.83,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-20 00:11,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-20 00:11,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-20 00:11,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
-2026-11-20 00:11,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-20 00:11,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
 2026-11-20 09:14,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-20 09:14,Kingston XS1000,Amazon,1111.00,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-20 09:14,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-20 09:14,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-20 09:14,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-20 09:14,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-20 09:14,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-20 09:14,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-20 09:14,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-20 09:14,Samsung T9,Amazon,1799.10,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-20 09:14,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-20 09:14,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-20 09:14,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-20 09:14,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-20 09:14,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-20 09:14,SanDisk Extreme PRO,Amazon,2050.73,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-20 09:14,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-20 09:14,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-20 09:14,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-20 09:14,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-20 09:14,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-20 10:14,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-20 10:14,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-20 10:14,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-20 10:14,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-20 10:14,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-20 10:14,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-20 10:14,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-20 10:14,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-20 10:14,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-20 10:14,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-20 10:14,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-20 10:14,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-20 10:14,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-20 10:14,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-20 10:14,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-20 10:14,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-20 17:44,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-20 17:44,Kingston XS1000,Amazon,1111.00,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-20 17:44,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-20 17:44,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-20 17:44,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-20 17:44,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-20 17:44,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-20 17:44,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-20 17:44,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-20 17:44,Samsung T9,Amazon,1914.00,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-20 17:44,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-20 17:44,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-20 17:44,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-20 17:44,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-20 17:44,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-20 17:44,SanDisk Extreme PRO,Amazon,2124.11,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-20 17:44,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-20 17:44,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-20 17:44,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
-2026-11-20 17:44,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-20 17:44,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-20 17:44,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-20 22:47,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-20 22:47,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-20 22:47,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-20 22:47,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-20 22:47,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-20 22:47,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-20 22:47,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-20 22:47,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-20 22:47,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-20 22:47,Samsung T9,Amazon,1914.00,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-20 22:47,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-20 22:47,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-20 22:47,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-20 22:47,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-20 22:47,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-20 22:47,SanDisk Extreme PRO,Amazon,2124.11,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-20 22:47,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-20 22:47,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-20 22:47,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-20 22:47,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-20 22:47,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-20 23:33,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-20 23:33,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-20 23:33,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-20 23:33,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-20 23:33,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-20 23:33,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-20 23:33,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-20 23:33,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-20 23:33,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-20 23:33,Samsung T9,Amazon,1914.00,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-20 23:33,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-20 23:33,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-20 23:33,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-20 23:33,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-20 23:33,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-20 23:33,SanDisk Extreme PRO,Amazon,2124.11,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-20 23:33,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-20 23:33,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-20 23:33,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
-2026-11-20 23:33,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-20 23:33,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-20 23:33,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 05:51,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 05:51,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 05:51,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 05:51,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 05:51,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 05:51,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-21 05:51,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-21 05:51,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-21 05:51,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 05:51,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 05:51,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 05:51,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 05:51,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-21 05:51,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-21 05:51,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 05:51,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 07:54,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 07:54,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-21 07:54,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 07:54,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 07:54,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 07:54,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 07:54,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-21 07:54,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-21 07:54,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-21 07:54,Samsung T9,Amazon,1914.00,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-21 07:54,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-21 07:54,SanDisk Extreme,Amazon,1749.00,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-21 07:54,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 07:54,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 07:54,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 07:54,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 07:54,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-21 07:54,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-21 07:54,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 07:54,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 13:58,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 13:58,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-21 13:58,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 13:58,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 13:58,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 13:58,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 13:58,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-21 13:58,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-21 13:58,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-21 13:58,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-21 13:58,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-21 13:58,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-21 13:58,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 13:58,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 13:58,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 13:58,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 13:58,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-21 13:58,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-21 13:58,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 13:58,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 14:56,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 14:56,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-21 14:56,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 14:56,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 14:56,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 14:56,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 14:56,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-21 14:56,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-21 14:56,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-21 14:56,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 14:56,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 14:56,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 14:56,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 14:56,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-21 14:56,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-21 14:56,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 14:56,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 19:25,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 19:25,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-21 19:25,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 19:25,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 19:25,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 19:25,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 19:25,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-21 19:25,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-21 19:25,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-21 19:25,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-21 19:25,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-21 19:25,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-21 19:25,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 19:25,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 19:25,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 19:25,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 19:25,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
 2026-11-21 19:25,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 19:25,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 20:29,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 20:29,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 20:29,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 20:29,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 20:29,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 20:29,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-21 20:29,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-21 20:29,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-21 20:29,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 20:29,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 20:29,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 20:29,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 20:29,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-21 20:29,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-21 20:29,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 20:29,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-21 23:40,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-21 23:40,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-21 23:40,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-21 23:40,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-21 23:40,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-21 23:40,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-21 23:40,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-21 23:40,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-21 23:40,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-21 23:40,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-21 23:40,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-21 23:40,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-21 23:40,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-21 23:40,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-21 23:40,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-21 23:40,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-21 23:40,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-21 23:40,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-21 23:40,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-21 23:40,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-21 23:40,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 04:08,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 04:08,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-22 04:08,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 04:08,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 04:08,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 04:08,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 04:08,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-22 04:08,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-22 04:08,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-22 04:08,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 04:08,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 04:08,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-22 04:08,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 04:08,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-22 04:08,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 04:08,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-22 04:08,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 04:08,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 07:20,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 07:20,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-22 07:20,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 07:20,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 07:20,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 07:20,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 07:20,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-22 07:20,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-22 07:20,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-22 07:20,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-22 07:20,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-22 07:20,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-22 07:20,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 07:20,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 07:20,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-22 07:20,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 07:20,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-22 07:20,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 07:20,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-22 07:20,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-22 07:20,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 07:20,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 09:30,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 09:30,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-22 09:30,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 09:30,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 09:30,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 09:30,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 09:30,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-22 09:30,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-22 09:30,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-22 09:30,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-22 09:30,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-22 09:30,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-22 09:30,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 09:30,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 09:30,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-22 09:30,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 09:30,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-22 09:30,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 09:30,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-22 09:30,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-22 09:30,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 09:30,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 12:29,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 12:29,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 12:29,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 12:29,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 12:29,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 12:29,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-22 12:29,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-22 12:29,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-22 12:29,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 12:29,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 12:29,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 12:29,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 12:29,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
 2026-11-22 12:29,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 12:29,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 15:04,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 15:04,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-22 15:04,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 15:04,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 15:04,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 15:04,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 15:04,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-22 15:04,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-22 15:04,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-22 15:04,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-22 15:04,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-22 15:04,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-22 15:04,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 15:04,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 15:04,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-22 15:04,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 15:04,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-22 15:04,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 15:04,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-22 15:04,SanDisk Portable,Amazon,1142.28,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-22 15:04,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 15:04,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 17:18,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 17:18,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 17:18,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 17:18,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 17:18,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 17:18,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-22 17:18,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-22 17:18,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-22 17:18,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 17:18,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 17:18,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 17:18,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 17:18,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
 2026-11-22 17:18,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 17:18,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 18:55,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 18:55,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 18:55,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 18:55,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 18:55,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 18:55,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-22 18:55,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-22 18:55,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-22 18:55,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 18:55,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 18:55,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 18:55,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 18:55,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
 2026-11-22 18:55,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 18:55,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 20:52,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 20:52,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 20:52,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 20:52,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 20:52,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
-2026-11-22 20:52,Kingston XS2000,Amazon,1351.85,1,https://www.amazon.com.br/dp/B09F5YHQ1K
 2026-11-22 20:52,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-22 20:52,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-22 20:52,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-22 20:52,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 20:52,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 20:52,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 20:52,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 20:52,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
 2026-11-22 20:52,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 20:52,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 22:36,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 22:36,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-22 22:36,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 22:36,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 22:36,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 22:36,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 22:36,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-22 22:36,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-22 22:36,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-22 22:36,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-22 22:36,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-22 22:36,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-22 22:36,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 22:36,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 22:36,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-22 22:36,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 22:36,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-22 22:36,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 22:36,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-22 22:36,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-22 22:36,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 22:36,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-22 23:55,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-22 23:55,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-22 23:55,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-22 23:55,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-22 23:55,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-22 23:55,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-22 23:55,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-22 23:55,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-22 23:55,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-22 23:55,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-22 23:55,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-22 23:55,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-22 23:55,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-22 23:55,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-22 23:55,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-22 23:55,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-22 23:55,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-22 23:55,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-22 23:55,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-22 23:55,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-22 23:55,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-22 23:55,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-23 05:17,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-23 05:17,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-23 05:17,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-23 05:17,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-23 05:17,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-23 05:17,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-23 05:17,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-23 05:17,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-23 05:17,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-23 05:17,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-23 05:17,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-23 05:17,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-23 05:17,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-23 05:17,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-23 05:17,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-23 05:17,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-23 05:17,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-23 05:17,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-23 05:17,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-23 05:17,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
 2026-11-23 05:17,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-23 05:17,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-23 07:40,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-23 07:40,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-23 07:40,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-23 07:40,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-23 07:40,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-23 07:40,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
-2026-11-23 07:40,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
 2026-11-23 07:40,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
-2026-11-23 07:40,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-23 07:40,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-23 07:40,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-23 07:40,SanDisk Extreme PRO,Amazon,1766.05,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-23 07:40,SanDisk Portable,KaBuM!,1186.55,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-23 07:40,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-23 07:40,SanDisk Portable,Amazon,1115.10,1,https://www.amazon.com.br/dp/B0C5JQ68FY
-2026-11-23 07:40,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-23 07:40,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-23 07:40,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
 2026-11-23 10:19,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
 2026-11-23 10:19,Kingston XS1000,Amazon,1047.35,1,https://www.amazon.com.br/dp/B0CCQB7BN7
 2026-11-23 10:19,Kingston XS1000,Kingston Store,2866.40,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
-2026-11-23 10:19,Kingston XS1000,KaBuM!,1100.00,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
-2026-11-23 10:19,Kingston XS1000,KaBuM!,1459.99,1,https://www.kabum.com.br/produto/480106/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g-
-2026-11-23 10:19,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
 2026-11-23 10:19,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
 2026-11-23 10:19,Samsung T7,Amazon,2242.99,1,https://www.amazon.com.br/dp/B0874XN4D8
-2026-11-23 10:19,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
-2026-11-23 10:19,Samsung T9,Amazon,1971.38,1,https://www.amazon.com.br/dp/B0CHFSWM2P
 2026-11-23 10:19,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
 2026-11-23 10:19,SanDisk Extreme,Amazon,1509.84,1,https://www.amazon.com.br/dp/B08GTYFC37
-2026-11-23 10:19,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/1054891/ssd-externo-sandisk-1tb-portatil-extreme-verde-sdssde61-1t00-g25m-
-2026-11-23 10:19,SanDisk Extreme,KaBuM!,2546.01,1,https://www.kabum.com.br/produto/538223/ssd-externo-sandisk-1tb-portatil-extreme-v2-preto-sdssde61-1t00
-2026-11-23 10:19,SanDisk Extreme,Amazon,1671.05,1,https://www.amazon.com.br/dp/B0C59G4TLQ
-2026-11-23 10:19,SanDisk Extreme PRO,KaBuM!,2469.05,1,https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto
-2026-11-23 10:19,SanDisk Extreme PRO,Amazon,2046.04,1,https://www.amazon.com.br/dp/B08GV9M64L
-2026-11-23 10:19,SanDisk Portable,KaBuM!,1253.05,1,https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26
-2026-11-23 10:19,SanDisk Portable,KaBuM!,1699.99,1,https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25
-2026-11-23 10:19,SanDisk Portable,Amazon,1187.50,1,https://www.amazon.com.br/dp/B0C5JQ68FY
-2026-11-23 10:19,SanDisk Portable,Terabyte,1681.41,0,https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25
 2026-11-23 10:19,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
-2026-11-23 10:19,Crucial X10 Pro,KaBuM!,2274.02,1,https://www.kabum.com.br/produto/540642/ssd-externo-crucial-leit-x10-pro-series-1tb-usb-c-3-2-2100mb-s-ct1000x10prossd9
+2026-11-23 13:36,Kingston XS1000,KaBuM!,1039.99,1,https://www.kabum.com.br/produto/476239/ssd-externo-kingston-xs1000-1tb-usb-3-2-gen-2x2-portatil-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
+2026-11-23 13:36,Kingston XS1000,Kingston Store,3068.70,1,https://www.kingstonstore.com.br/products/sxs1000-1000g
+2026-11-23 13:36,Kingston XS1000,KaBuM!,1039.99,1,https://www.kabum.com.br/produto/476239/ssd-kingston-xs1000-1tb-portatil-usb-3-2-gen-2-leitura-1050-mb-s-gravacao-1050-mb-s-preto-sxs1000-1000g
+2026-11-23 13:36,Kingston XS2000,KaBuM!,1999.99,1,https://www.kabum.com.br/produto/332899/ssd-kingston-xs2000-1tb-portatil-usb-3-2-gen-2x2-leitura-2000-mb-s-gravacao-2000-mb-s-prata-sxs2000-1000g
+2026-11-23 13:36,Samsung T7,KaBuM!,729.99,0,https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am
+2026-11-23 13:36,Samsung T7 Shield,KaBuM!,2499.98,1,https://www.kabum.com.br/produto/514160/ssd-samsung-1tb-t7-titan-shield
+2026-11-23 13:36,SanDisk Extreme,KaBuM!,793.99,0,https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25
+2026-11-23 13:36,Crucial X9,KaBuM!,829.20,0,https://www.kabum.com.br/produto/540514/ssd-externo-crucial-1tb-portatil-x9-preto-ct1000x9ssd9
