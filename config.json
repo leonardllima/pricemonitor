@@ -4,11 +4,13 @@
   "intervalo_minimo_min": 45,
   "estilo_ranking": "numeros",
   "outras_lojas_por_modelo": 0,
+  "pausa_apos_falhas": 3,
+  "pausa_loja_horas": 24,
   "queda_minima_pct": 3,
   "margem_menor_preco_pct": 1,
   "botoes": { "ativo": true, "alternativas_por_modelo": 0 },
   "usar_navegador_real": true,
-  "dominios_navegador": ["pichau.com.br", "terabyteshop.com.br", "kabum.com.br"],
+  "dominios_navegador": ["pichau.com.br", "terabyteshop.com.br", "kabum.com.br", "shop.samsung.com", "fastshop.com.br", "kalunga.com", "girafa.com.br"],
   "usar_leitor_reserva": false,
   "descoberta": { "ativa": true, "modelos_por_execucao": 4, "validade_horas": 24, "candidatos_por_loja": 3, "links_por_loja": 1, "versao": 3 },
   "lojas_busca": [
@@ -47,36 +49,80 @@
       "loja": "Mercado Livre",
       "base": "https://www.mercadolivre.com.br",
       "busca": "https://lista.mercadolivre.com.br/{hifen}",
-      "padrao": "https://www\\.mercadolivre\\.com\\.br/[a-z0-9-]+/p/MLB\\d+|https://produto\\.mercadolivre\\.com\\.br/MLB-\\d+-[a-z0-9-]+-_JM",
-      "ativo": false
+      "padrao": "https://www\\.mercadolivre\\.com\\.br/[a-z0-9-]+/p/MLB\\d+|https://produto\\.mercadolivre\\.com\\.br/MLB-\\d+-[a-z0-9-]+-_JM"
     },
     {
       "loja": "Magalu",
       "base": "https://www.magazineluiza.com.br",
       "busca": "https://www.magazineluiza.com.br/busca/{mais}/",
-      "padrao": "/[a-z0-9-]+/p/[a-z0-9]{6,12}/[a-z]{2}/[a-z0-9]{2,6}/",
-      "ativo": false
+      "padrao": "/[a-z0-9-]+/p/[a-z0-9]{6,12}/[a-z]{2}/[a-z0-9]{2,6}/"
     },
     {
       "loja": "Casas Bahia",
       "base": "https://www.casasbahia.com.br",
       "busca": "https://www.casasbahia.com.br/{hifen}/b",
-      "padrao": "/[a-z0-9-]+/p/\\d{6,}",
-      "ativo": false
+      "padrao": "/[a-z0-9-]+/p/\\d{6,}"
     },
     {
       "loja": "Carrefour",
       "base": "https://www.carrefour.com.br",
       "busca": "https://www.carrefour.com.br/{hifen}?_q={mais}&map=ft",
-      "padrao": "/[a-z0-9-]{20,}/p(?=[\\\"'?#\\s])",
-      "ativo": false
+      "padrao": "/[a-z0-9-]{20,}/p(?=[\\\"'?#\\s])"
     },
     {
       "loja": "Americanas",
       "base": "https://www.americanas.com.br",
       "busca": "https://www.americanas.com.br/busca/{hifen}",
-      "padrao": "/[a-z0-9-]{20,}-\\d{6,}/p",
-      "ativo": false
+      "padrao": "/[a-z0-9-]{20,}-\\d{6,}/p"
+    },
+    {
+      "loja": "Samsung Shop",
+      "base": "https://shop.samsung.com",
+      "somente_marcas": ["samsung"],
+      "busca": "https://shop.samsung.com/br/{hifen}?_q={mais}&map=ft",
+      "padrao": "/br/[a-z0-9-]{8,}/p(?=[\\\"'?#\\s])"
+    },
+    {
+      "loja": "Fast Shop",
+      "base": "https://www.fastshop.com.br",
+      "busca": "https://www.fastshop.com.br/web/s/{hifen}",
+      "padrao": "generico"
+    },
+    {
+      "loja": "Kalunga",
+      "base": "https://www.kalunga.com",
+      "busca": "https://www.kalunga.com/busca/{hifen}",
+      "padrao": "generico"
+    },
+    {
+      "loja": "Girafa",
+      "base": "https://www.girafa.com.br",
+      "busca": "https://www.girafa.com.br/busca?q={mais}",
+      "padrao": "generico"
+    },
+    {
+      "loja": "Submarino",
+      "base": "https://www.submarino.com.br",
+      "busca": "https://www.submarino.com.br/busca/{hifen}",
+      "padrao": "/[a-z0-9-]{20,}-\\d{6,}/p|/produto/\\d{6,}"
+    },
+    {
+      "loja": "Shoptime",
+      "base": "https://www.shoptime.com.br",
+      "busca": "https://www.shoptime.com.br/busca/{hifen}",
+      "padrao": "/[a-z0-9-]{20,}-\\d{6,}/p|/produto/\\d{6,}"
+    },
+    {
+      "loja": "Extra",
+      "base": "https://www.extra.com.br",
+      "busca": "https://www.extra.com.br/{hifen}/b",
+      "padrao": "/[a-z0-9-]+/p/\\d{6,}"
+    },
+    {
+      "loja": "Ponto",
+      "base": "https://www.pontofrio.com.br",
+      "busca": "https://www.pontofrio.com.br/{hifen}/b",
+      "padrao": "/[a-z0-9-]+/p/\\d{6,}"
     }
   ],
   "produtos": [
@@ -95,11 +141,11 @@
         { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B0CCQB7BN7" },
         { "loja": "Pichau", "url": "https://www.pichau.com.br/ssd-externo-kingston-xs1000-1tb-usb-type-c-leitura-1050mb-s-gravacao-1000mb-s-preto-sxs1000-1000g" },
         { "loja": "Terabyte", "url": "https://www.terabyteshop.com.br/produto/28846/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-leitura-1050mbs-sxs10001000g" },
-        { "loja": "Mercado Livre", "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-1050mbs/p/MLB26122922", "ativo": false },
+        { "loja": "Mercado Livre", "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-kingston-xs1000-1tb-usb-32-1050mbs/p/MLB26122922" },
         { "loja": "Kingston Store", "url": "https://www.kingstonstore.com.br/products/sxs1000-1000g" },
-        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/ssd-externo-portatil-kingston-1tb-usb-3-2-leitura-1-050mb-s-e-gravacao-1-050mb-s-sxs1000-1000g/p/bk1e9ejc81/in/ssdi/", "ativo": false },
-        { "loja": "Casas Bahia", "url": "https://www.casasbahia.com.br/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g/p/1568548994", "ativo": false },
-        { "loja": "Carrefour", "url": "https://www.carrefour.com.br/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs10001000g-mp935151889/p", "ativo": false }
+        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/ssd-externo-portatil-kingston-1tb-usb-3-2-leitura-1-050mb-s-e-gravacao-1-050mb-s-sxs1000-1000g/p/bk1e9ejc81/in/ssdi/" },
+        { "loja": "Casas Bahia", "url": "https://www.casasbahia.com.br/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs1000-1000g/p/1568548994" },
+        { "loja": "Carrefour", "url": "https://www.carrefour.com.br/ssd-externo-kingston-1tb-portatil-xs1000-preto-prata-sxs10001000g-mp935151889/p" }
       ],
       "capacidade_gb": 1000,
       "leitura_mbs": 1050
@@ -132,7 +178,8 @@
         { "loja": "KaBuM!", "url": "https://www.kabum.com.br/produto/343491/ssd-externo-samsung-t7-1tb-usb-3-2-leitura-ata-1050mb-s-e-gravacao-ata-1000mb-s-prata-titanium-mu-pc1t0t-am" },
         { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B0874XN4D8" },
         { "loja": "Pichau", "url": "https://www.pichau.com.br/ssd-externo-samsung-t7-1tb-usb-3-2-cinza-mu-pc1t0t-ww" },
-        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/ssd-externo-samsung-t7-1tb-usb-3-2-mu-pc1t0t-am/p/gj70gk153h/in/ssdi/", "ativo": false }
+        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/ssd-externo-samsung-t7-1tb-usb-3-2-mu-pc1t0t-am/p/gj70gk153h/in/ssdi/" },
+        { "loja": "Samsung Shop", "url": "https://shop.samsung.com/br/samsung-ssd-t7-titan-1tb/p" }
       ],
       "capacidade_gb": 1000,
       "leitura_mbs": 1050
@@ -179,8 +226,8 @@
         { "loja": "KaBuM!", "url": "https://www.kabum.com.br/produto/129775/ssd-externo-portatil-sandisk-extreme-1tb-usb-3-1-leitura-1050-mb-s-e-gravacao-1000-mb-s-preto-e-laranja-sdssde61-1t00-g25" },
         { "loja": "Amazon", "url": "https://www.amazon.com.br/dp/B08GTYFC37" },
         { "loja": "Terabyte", "url": "https://www.terabyteshop.com.br/produto/30545/ssd-externo-portatil-sandisk-extreme-1tb-usb-c-leitura-1050mbs-e-gravacao-1000mbs-black-sdssde61-1t00-g25" },
-        { "loja": "Mercado Livre", "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-1tb-interface-usb-31-gen-2-sandisk-extreme-sdssde61-1t00-g25-velocidade-de-leitura-ate-1050mbs-preto/p/MLB17325054", "ativo": false },
-        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/disco-solido-externo-sandisk-extreme-sdssde61-1t00-g25-1tb/p/bfagada54f/in/ssdi/", "ativo": false }
+        { "loja": "Mercado Livre", "url": "https://www.mercadolivre.com.br/ssd-externo-portatil-1tb-interface-usb-31-gen-2-sandisk-extreme-sdssde61-1t00-g25-velocidade-de-leitura-ate-1050mbs-preto/p/MLB17325054" },
+        { "loja": "Magalu", "url": "https://www.magazineluiza.com.br/disco-solido-externo-sandisk-extreme-sdssde61-1t00-g25-1tb/p/bfagada54f/in/ssdi/" }
       ],
       "capacidade_gb": 1000,
       "leitura_mbs": 1050,
@@ -275,6 +322,23 @@
       "leitura_mbs": 1050
     },
     {
+      "nome": "SanDisk Portable E10",
+      "marca": "sandisk",
+      "capacidade_gb": 1000,
+      "leitura_mbs": 600,
+      "preco_alvo": 899,
+      "preco_alvo_min": 799,
+      "faixa_valida": [300, 4000],
+      "busca": "sandisk portable ssd e10 1tb",
+      "codigos": ["SDSSDE10-1T00"],
+      "obrigatorias": ["sandisk", "1tb"],
+      "proibidas": ["extreme", "plus", "ultra", "500gb", "2tb", "4tb", "sdssde30", "sdssde31"],
+      "exigir_codigo": true,
+      "ofertas": [
+        { "loja": "Terabyte", "url": "https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25" }
+      ]
+    },
+    {
       "nome": "SanDisk Portable V3",
       "marca": "sandisk",
       "capacidade_gb": 1000,
@@ -331,8 +395,7 @@
       "codigos": ["SDSSDE10-500G"],
       "obrigatorias": ["sandisk", "500gb"],
       "proibidas": ["extreme", "plus", "ultra", "1tb", "2tb", "sdssde30", "sdssde31"],
-      "par_1tb": "SanDisk Portable",
-      "par_aproximado": true,
+      "par_1tb": "SanDisk Portable E10",
       "exigir_codigo": true,
       "ofertas": []
     },
