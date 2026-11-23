@@ -237,7 +237,7 @@ class TestDescoberta(unittest.TestCase):
         c = ColetorFalso({"https://a/1": 1000, "https://a/2": 950, "https://k/1": 990})
         _, blocos, _, _ = monitor.executar(cfg, [], c, self.AGORA)
         txt = monitor.texto_visivel("\n".join(blocos))
-        self.assertIn("R$ 950,00 · Amazon", txt)
+        self.assertIn("R$ 950 · Amazon", txt)
         self.assertEqual(txt.count("Amazon"), 1)
 
 
