@@ -319,6 +319,8 @@ def produto_confere(html_txt, produto):
     c = compacto(tudo)
     if any(compacto(cod) in c for cod in produto.get("codigos", [])):
         return True
+    if produto.get("exigir_codigo"):     # linhas muito parecidas (ex.: SanDisk E30 x E31): só pelo código
+        return False
     return bool(produto.get("obrigatorias")) and termos_ok(titulo, produto) and eh_portatil(titulo)
 
 
@@ -712,7 +714,119 @@ def dividir_mensagem(blocos, limite=LIMITE_TELEGRAM):
 MEDALHAS = ["🥇", "🥈", "🥉"]
 
 
-def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2):
+def marcador(i, estilo="medalhas"):
+    """Posição no ranking: '🥇🥈🥉 4.' (medalhas) ou '1. 2. 3.' (numeros)."""
+    if estilo == "numeros":
+        return f"{i + 1}."
+    return MEDALHAS[i] if i < len(MEDALHAS) else f"{i + 1}."
+
+
+def rotulo_produto(prod):
+    """Nome de exibição: acrescenta a capacidade quando ela foi informada e não está no nome."""
+    cap = prod.get("capacidade_gb")
+    if not cap:
+        return prod["nome"]
+    rot = rotulo_capacidade(cap)
+    return prod["nome"] if compacto(rot) in compacto(prod["nome"]) else f"{prod['nome']} {rot}"
+
+
+def rotulo_capacidade(gb):
+    return f"{gb // 1000}TB" if gb >= 1000 and gb % 1000 == 0 else f"{gb}GB"
+
+
+def ranking_modelos(resultados):
+    """Melhor oferta disponível por loja, por modelo. Devolve (com_preco, sem_estoque)."""
+    com_preco, sem_estoque = [], []
+    for r in resultados:
+        melhores = {}
+        for o in r["ofertas"]:
+            if o["preco"] is None or not o["disp"]:
+                continue
+            if o["loja"] not in melhores or o["preco"] < melhores[o["loja"]]["preco"]:
+                melhores[o["loja"]] = o
+        ofertas = sorted(melhores.values(), key=lambda o: o["preco"])
+        item = {**r, "rotulo": r.get("rotulo", r["nome"]), "ofertas_ok": ofertas}
+        if ofertas:
+            com_preco.append(item)
+        elif r["ofertas"]:
+            sem_estoque.append(item)
+    com_preco.sort(key=lambda x: x["ofertas_ok"][0]["preco"])
+    return com_preco, sem_estoque
+
+
+def secoes(com_preco):
+    """Agrupa por capacidade (maior primeiro). Sem capacidade informada = uma seção só."""
+    caps = sorted({m.get("cap") or 0 for m in com_preco}, reverse=True)
+    return [(cap, [m for m in com_preco if (m.get("cap") or 0) == cap]) for cap in caps]
+
+
+def custo_beneficio(com_preco):
+    """Compara cada 500GB com o 1TB do mesmo modelo e indica o melhor custo-benefício.
+    Devolve (linhas_html, resumo_dict). Só atua quando os modelos têm capacidade informada."""
+    modelos = [m for m in com_preco if m.get("cap")]
+    if len({m["cap"] for m in modelos}) < 2:
+        return [], {}
+    por_nome = {m["nome"]: m for m in modelos}
+    for m in modelos:
+        m["preco"] = m["ofertas_ok"][0]["preco"]
+        m["por_tb"] = m["preco"] / (m["cap"] / 1000)
+
+    linhas = ["💡 <b>CUSTO-BENEFÍCIO</b> <i>(preço por TB)</i>"]
+    pares = 0
+    for m in sorted(modelos, key=lambda x: x["rotulo"]):
+        par = por_nome.get(m.get("par") or "")
+        if not par:
+            continue
+        pares += 1
+        menor, maior = (m, par) if m["cap"] < par["cap"] else (par, m)
+        razao = maior["por_tb"] / menor["por_tb"]
+        dif = maior["preco"] - menor["preco"]
+        aprox = "≈" if m.get("par_aproximado") else ""
+        if razao <= 0.85:
+            veredito = f"✅ {rotulo_capacidade(maior['cap'])} ({round((1 - razao) * 100)}% menos/TB)"
+        elif razao >= 1:
+            veredito = f"✅ {rotulo_capacidade(menor['cap'])} ({round((razao - 1) * 100)}% menos/TB)"
+        else:
+            veredito = f"⚖️ empate ({round((1 - razao) * 100)}% menos/TB no {rotulo_capacidade(maior['cap'])})"
+        linhas.append(f"• {html.escape(menor['rotulo'])} {aprox}× {rotulo_capacidade(maior['cap'])}: "
+                      f"{brl_curto(menor['preco'])} × {brl_curto(maior['preco'])} (+{brl_curto(dif)}) → {veredito}")
+    if not pares:
+        linhas.append("<i>Sem pares 500GB × 1TB com preço nesta consulta.</i>")
+
+    melhor = min(modelos, key=lambda x: x["por_tb"])
+    barato = min(modelos, key=lambda x: x["preco"])
+    rapidos = [x for x in modelos if (x.get("vel") or 0) >= 2000]
+    rapido = min(rapidos, key=lambda x: x["por_tb"]) if rapidos else None
+
+    def oferta(x):
+        o = x["ofertas_ok"][0]
+        return f"{brl(o['preco'])} · {link(o['loja'], o['url'])}"
+
+    vel = lambda x: (", " + f"{x['vel']:,}".replace(",", ".") + " MB/s") if x.get("vel") else ""
+    linhas.append(f"🏆 Melhor custo/TB: <b>{html.escape(melhor['rotulo'])}</b> — "
+                  f"R$ {brl_curto(melhor['por_tb'])}/TB ({oferta(melhor)}{vel(melhor)})")
+    if barato is not melhor:
+        extra = round((barato["por_tb"] / melhor["por_tb"] - 1) * 100)
+        linhas.append(f"💰 Menor desembolso: <b>{html.escape(barato['rotulo'])}</b> — {oferta(barato)} "
+                      f"<i>(paga {extra}% a mais por TB)</i>")
+    if rapido and rapido is not melhor:
+        linhas.append(f"⚡ Rápido (≥2.000 MB/s) mais em conta: <b>{html.escape(rapido['rotulo'])}</b> — "
+                      f"R$ {brl_curto(rapido['por_tb'])}/TB ({oferta(rapido)})")
+
+    if barato is not melhor and barato["preco"] < melhor["preco"]:
+        economia = melhor["preco"] - barato["preco"]
+        frase = (f"leve o <b>{html.escape(melhor['rotulo'])}</b>: é o menor preço por TB. "
+                 f"O {html.escape(barato['rotulo'])} só compensa se o limite for o orçamento "
+                 f"(economiza {brl(economia)}, mas entrega menos espaço por real).")
+    else:
+        frase = (f"o <b>{html.escape(melhor['rotulo'])}</b> é ao mesmo tempo o mais barato e o de "
+                 f"menor preço por TB — melhor escolha agora.")
+    linhas.append(f"💬 <b>Recomendação:</b> {frase}")
+    return linhas, {"melhor": melhor["nome"], "barato": barato["nome"],
+                    "rapido": rapido["nome"] if rapido else None}
+
+
+def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2, estilo="medalhas"):
     blocos = [f"📊 <b>{html.escape(titulo)}</b> · {agora[8:10]}/{agora[5:7]} {agora[11:16]}"]
 
     if alertas:
@@ -722,44 +836,41 @@ def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2):
                           f"<b>{brl(a['preco'])}</b> — {html.escape(a['detalhe'])}")
         blocos.append("\n".join(linhas))
 
-    com_preco, sem_estoque = [], []
-    for r in resultados:
-        melhores_por_loja = {}
-        for o in r["ofertas"]:
-            if o["preco"] is None or not o["disp"]:
-                continue
-            atual = melhores_por_loja.get(o["loja"])
-            if atual is None or o["preco"] < atual["preco"]:
-                melhores_por_loja[o["loja"]] = o
-        disp = sorted(melhores_por_loja.values(), key=lambda o: o["preco"])
-        if disp:
-            com_preco.append((r["nome"], disp))
-        elif r["ofertas"]:
-            sem_estoque.append(r["nome"])
-    com_preco.sort(key=lambda x: x[1][0]["preco"])
-
-    linhas = []
-    menor_geral = com_preco[0][1][0]["preco"] if com_preco else None
-    for i, (nome, ofertas) in enumerate(com_preco):
-        melhor = ofertas[0]
-        marca = MEDALHAS[i] if i < len(MEDALHAS) else f"{i + 1}."
-        seta = ""
-        if melhor["ultimo"] and abs(melhor["preco"] - melhor["ultimo"]) >= 0.01:
-            dif = melhor["preco"] - melhor["ultimo"]
-            seta = f" {'⬇️' if dif < 0 else '⬆️'}{brl_curto(abs(dif))}"
-        extra = f" <i>(+{brl_curto(melhor['preco'] - menor_geral)})</i>" if i > 0 else ""
-        linhas.append(f"{marca} <b>{html.escape(nome)}</b> — <b>{brl(melhor['preco'])}</b> · "
-                      f"{link(melhor['loja'], melhor['url'])}{seta}{extra}")
-        resto = ofertas[1:]
-        if resto and outras_lojas:
-            itens = [f"{link(o['loja'], o['url'])} {brl_curto(o['preco'])}" for o in resto[:outras_lojas]]
-            if len(resto) > outras_lojas:
-                itens.append(f"+{len(resto) - outras_lojas}")
-            linhas.append("      ↳ " + " · ".join(itens))
-    if sem_estoque:
-        linhas.append("⛔ <i>Sem estoque: " + ", ".join(html.escape(n) for n in sem_estoque) + "</i>")
-    if linhas:
+    com_preco, sem_estoque = ranking_modelos(resultados)
+    grupos = secoes(com_preco)
+    for cap, modelos in grupos:
+        linhas = []
+        if len(grupos) > 1:
+            linhas.append(f"💾 <b>{rotulo_capacidade(cap)}:</b>\n")
+        menor = modelos[0]["ofertas_ok"][0]["preco"]
+        for i, m in enumerate(modelos):
+            ofertas = m["ofertas_ok"]
+            melhor = ofertas[0]
+            marca = marcador(i, estilo)
+            seta = ""
+            if melhor["ultimo"] and abs(melhor["preco"] - melhor["ultimo"]) >= 0.01:
+                dif = melhor["preco"] - melhor["ultimo"]
+                seta = f" {'⬇️' if dif < 0 else '⬆️'}{brl_curto(abs(dif))}"
+            extra = f" <i>(+{brl_curto(melhor['preco'] - menor)})</i>" if i > 0 else ""
+            linhas.append(f"{marca} <b>{html.escape(m['rotulo'])}</b> — <b>{brl(melhor['preco'])}</b> · "
+                          f"{link(melhor['loja'], melhor['url'])}{seta}{extra}")
+            resto = ofertas[1:]
+            if resto and outras_lojas:
+                itens = [f"{link(o['loja'], o['url'])} {brl_curto(o['preco'])}" for o in resto[:outras_lojas]]
+                if len(resto) > outras_lojas:
+                    itens.append(f"+{len(resto) - outras_lojas}")
+                linhas.append("      ↳ " + " · ".join(itens))
         blocos.append("\n".join(linhas))
+    if sem_estoque:
+        txt = "⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_estoque) + "</i>"
+        if grupos:
+            blocos[-1] += "\n" + txt
+        else:
+            blocos.append(txt)
+
+    cb, _ = custo_beneficio(com_preco)
+    if cb:
+        blocos.append("\n".join(cb))
 
     if falhas:
         cont = Counter(falhas)
@@ -780,7 +891,7 @@ def texto_botao(prefixo, produto, preco, loja):
     return texto[:LIMITE_TEXTO_BOTAO]
 
 
-def montar_botoes(resultados, alertas, alternativas=0):
+def montar_botoes(resultados, alertas, alternativas=0, estilo="medalhas"):
     """1 botão por modelo (melhor oferta, na ordem do ranking) + botões das ofertas em alerta no topo.
     `alternativas` > 0 acrescenta, na mesma linha, as próximas lojas mais baratas."""
     linhas, usados = [], set()
@@ -790,26 +901,16 @@ def montar_botoes(resultados, alertas, alternativas=0):
         usados.add(a["url"])
         linhas.append([{"text": texto_botao(a["icones"], a["produto"], a["preco"], a["loja"]), "url": a["url"]}])
 
-    ranking = []
-    for r in resultados:
-        melhores = {}
-        for o in r["ofertas"]:
-            if o["preco"] is None or not o["disp"]:
-                continue
-            if o["loja"] not in melhores or o["preco"] < melhores[o["loja"]]["preco"]:
-                melhores[o["loja"]] = o
-        ofertas = sorted(melhores.values(), key=lambda o: o["preco"])
-        if ofertas:
-            ranking.append((r["nome"], ofertas))
-    ranking.sort(key=lambda x: x[1][0]["preco"])
-
-    for i, (nome, ofertas) in enumerate(ranking):
-        marca = MEDALHAS[i] if i < len(MEDALHAS) else f"{i + 1}."
-        melhor = ofertas[0]
-        linha = [{"text": texto_botao(marca, nome, melhor["preco"], melhor["loja"]), "url": melhor["url"]}]
-        for o in ofertas[1:1 + alternativas]:
-            linha.append({"text": f"{o['loja']} {brl_curto(o['preco'])}"[:LIMITE_TEXTO_BOTAO], "url": o["url"]})
-        linhas.append(linha)
+    com_preco, _ = ranking_modelos(resultados)
+    for cap, modelos in secoes(com_preco):
+        for i, m in enumerate(modelos):
+            ofertas = m["ofertas_ok"]
+            marca = marcador(i, estilo)
+            melhor = ofertas[0]
+            linha = [{"text": texto_botao(marca, m["rotulo"], melhor["preco"], melhor["loja"]), "url": melhor["url"]}]
+            for o in ofertas[1:1 + alternativas]:
+                linha.append({"text": f"{o['loja']} {brl_curto(o['preco'])}"[:LIMITE_TEXTO_BOTAO], "url": o["url"]})
+            linhas.append(linha)
 
     total, saida = 0, []
     for linha in linhas:
@@ -832,11 +933,12 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
 
     for prod in cfg["produtos"]:
         nome, alvo = prod["nome"], prod.get("preco_alvo")
+        alvo_min = prod.get("preco_alvo_min")
         faixa = prod.get("faixa_valida", [1, 1_000_000])
         precos_hist = [float(h["preco"]) for h in historico
                        if h.get("produto") == nome and h.get("disponivel") == "1"]
         minimo_hist = min(precos_hist) if precos_hist else None
-        ofertas = []
+        ofertas, alertas_modelo = [], []
 
         for oferta in ofertas_do_produto(prod, estado):
             url, loja = oferta["url"], oferta["loja"]
@@ -871,7 +973,12 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
             icones, detalhes = "", []
             if alvo and preco <= alvo and (ultimo_disp is None or ultimo_disp > alvo):
                 icones += "🎯"
-                detalhes.append(f"alvo {brl(alvo)}")
+                if alvo_min and preco < alvo_min:
+                    detalhes.append(f"abaixo da faixa-alvo {brl_curto(alvo_min)}–{brl_curto(alvo)}")
+                elif alvo_min:
+                    detalhes.append(f"na faixa-alvo {brl_curto(alvo_min)}–{brl_curto(alvo)}")
+                else:
+                    detalhes.append(f"alvo {brl(alvo)}")
             if ultimo_disp and preco <= ultimo_disp * (1 - queda_pct / 100):
                 icones += "📉"
                 detalhes.append(f"-{(1 - preco / ultimo_disp) * 100:.0f}% (era {brl_curto(ultimo_disp)})")
@@ -879,16 +986,28 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
                 icones += "🏆"
                 detalhes.append("menor preço já visto")
             if icones:
-                alertas.append({"produto": nome, "loja": loja, "url": url, "preco": preco,
-                                "icones": icones, "detalhe": " · ".join(detalhes)})
+                alertas_modelo.append({"produto": rotulo_produto(prod), "loja": loja, "url": url, "preco": preco,
+                                       "icones": icones, "detalhes": detalhes})
 
-        resultados.append({"nome": nome, "ofertas": ofertas})
+        if alertas_modelo:   # 1 alerta por modelo: a oferta mais barata, reunindo os motivos de todas
+            principal = min(alertas_modelo, key=lambda a: a["preco"])
+            icones = "".join(dict.fromkeys(c for a in alertas_modelo for c in a["icones"]))
+            detalhes = list(dict.fromkeys(principal["detalhes"] + [d for a in alertas_modelo for d in a["detalhes"]
+                                                                   if not d.startswith(("na faixa", "abaixo da faixa",
+                                                                                        "alvo", "-"))]))
+            alertas.append({**{k: v for k, v in principal.items() if k != "detalhes"},
+                            "icones": icones, "detalhe": " · ".join(detalhes)})
 
+        resultados.append({"nome": nome, "ofertas": ofertas, "rotulo": rotulo_produto(prod),
+                           "cap": prod.get("capacidade_gb"), "par": prod.get("par_1tb"),
+                           "par_aproximado": prod.get("par_aproximado", False), "vel": prod.get("leitura_mbs")})
+
+    estilo = cfg.get("estilo_ranking", "medalhas")
     blocos = montar_mensagem(cfg.get("titulo", "Monitor de preços"), agora, resultados, alertas, falhas,
-                             cfg.get("outras_lojas_por_modelo", 2))
+                             cfg.get("outras_lojas_por_modelo", 2), estilo)
     if extras is not None:
         b = cfg.get("botoes", {"ativo": True})
-        extras["botoes"] = (montar_botoes(resultados, alertas, b.get("alternativas_por_modelo", 0))
+        extras["botoes"] = (montar_botoes(resultados, alertas, b.get("alternativas_por_modelo", 0), estilo)
                             if b.get("ativo", True) else [])
     return novas, blocos, bool(alertas), mudou
 
