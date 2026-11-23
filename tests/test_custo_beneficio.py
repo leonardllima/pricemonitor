@@ -23,6 +23,7 @@ TITULOS_NOVOS = {
     "SanDisk Extreme 500GB": "SSD Externo Portátil SanDisk Extreme 500GB USB-C SDSSDE61-500G-G25",
     "SanDisk Extreme V3 500GB": "SSD Portátil SanDisk Extreme V3 500GB USB-C 2000MB/s SDSSDE70-500G-G25",
     "Kingston XS2000 500GB": "SSD Externo Kingston XS2000 500GB USB-C 3.2 Gen 2x2 SXS2000/500G",
+    "SanDisk Portable E10": "SSD Externo Portátil Sandisk, 1TB, USB-C, Leitura 600MB/s, SDSSDE10-1T00-G25",
     "SanDisk Portable V3": "SSD Portátil SanDisk V3 1TB USB-C 1000MB/s SDSSDE31-1T00-G25",
     "SanDisk Extreme V3": "SSD Portátil SanDisk Extreme V3 1TB USB-C 2000MB/s SDSSDE70-1T00-G25",
 }
@@ -94,9 +95,8 @@ class TestRotulos(unittest.TestCase):
                item("C 500GB", 400, 500)]
         txt = monitor.texto_visivel("\n\n".join(monitor.montar_mensagem("T", "2026-11-23 13:07", res, [], [])))
         self.assertLess(txt.index("💾 1TB"), txt.index("💾 500GB"))
-        self.assertIn("🥇 B 1TB — R$ 900,00", txt)
-        self.assertIn("🥇 C 500GB — R$ 400,00", txt)
-        self.assertIn("🥈 A 500GB — R$ 600,00", txt)
+        self.assertIn("💾 1TB\n🥇 B · R$ 900 · Loja\n🥈 A · R$ 1.000 · Loja", txt)
+        self.assertIn("💾 500GB\n🥇 C · R$ 400 · Loja\n🥈 A · R$ 600 · Loja", txt)
 
     def test_botoes_por_secao(self):
         res = [item("A", 1000, 1000), item("A 500GB", 600, 500, par="A")]
@@ -108,56 +108,68 @@ class TestRotulos(unittest.TestCase):
         txt = "\n".join(monitor.montar_mensagem("T", "2026-11-23 13:07", res, [], []))
         self.assertNotIn("💾", txt)
         self.assertNotIn("CUSTO-BENEFÍCIO", txt)
+        self.assertNotIn("500GB OU 1TB", txt)
 
 
 # ------------------------------------------------------------------ custo-benefício
 class TestCustoBeneficio(unittest.TestCase):
     def cb(self, *itens):
         com_preco, _ = monitor.ranking_modelos(list(itens))
-        linhas, resumo = monitor.custo_beneficio(com_preco)
-        return monitor.texto_visivel("\n".join(linhas)), resumo
+        blocos, resumo = monitor.custo_beneficio(com_preco)
+        return monitor.texto_visivel("\n\n".join(blocos)), resumo
 
-    def test_1tb_compensa(self):
-        # 500GB a 700 = 1.400/TB ; 1TB a 1.000 = 1.000/TB -> 29% menos por TB
-        txt, r = self.cb(item("T7", 1000, 1000), item("T7 500GB", 700, 500, par="T7"))
-        self.assertIn("T7 500GB × 1TB: 700 × 1.000 (+300) → ✅ 1TB (29% menos/TB)", txt)
-        self.assertEqual(r["melhor"], "T7")
-        self.assertEqual(r["barato"], "T7 500GB")
-        self.assertIn("leve o T7 1TB", txt)
-        self.assertIn("economiza R$ 300,00", txt)
-        self.assertIn("paga 40% a mais por TB", txt)
+    def test_destaque_e_explicacao(self):
+        # 500GB a 700 = 1.400/TB ; 1TB a 1.000 = 1.000/TB
+        txt, r = self.cb(item("T7", 1000, 1000, vel=1050), item("T7 500GB", 700, 500, par="T7", vel=1050))
+        self.assertTrue(txt.startswith("⭐ MELHOR CUSTO-BENEFÍCIO DESTA RODADA\nT7 1TB — R$ 1.000,00 na Loja"))
+        self.assertIn("✔️ É o que dá mais espaço por real: R$ 1.000 por TB (o 2º, T7 500GB, sai R$ 1.400/TB).", txt)
+        self.assertIn("✔️ Velocidade de 1.050 MB/s — boa para backup e uso diário.", txt)
+        self.assertIn("💰 Quer gastar menos? T7 500GB por R$ 700 na Loja — mas paga 40% a mais por TB.", txt)
+        self.assertEqual((r["melhor"], r["barato"]), ("T7", "T7 500GB"))
 
-    def test_500gb_compensa(self):
-        # 1TB custa mais que 2× o 500GB
+    def test_quando_o_melhor_tambem_e_o_mais_barato(self):
         txt, r = self.cb(item("X", 1300, 1000), item("X 500GB", 600, 500, par="X"))
-        self.assertIn("✅ 500GB (8% menos/TB)", txt)
         self.assertEqual(r["melhor"], "X 500GB")
-        self.assertIn("é ao mesmo tempo o mais barato e o de menor preço por TB", txt)
+        self.assertIn("✔️ E ainda é o mais barato da rodada.", txt)
+        self.assertNotIn("💰", txt)
 
-    def test_empate(self):
-        txt, _ = self.cb(item("Y", 1100, 1000), item("Y 500GB", 600, 500, par="Y"))
-        self.assertIn("⚖️ empate (8% menos/TB no 1TB)", txt)
+    def test_500gb_ou_1tb(self):
+        txt, _ = self.cb(item("A", 1000, 1000), item("A 500GB", 700, 500, par="A"),     # 1TB 29% menos/TB
+                         item("B", 1300, 1000), item("B 500GB", 600, 500, par="B"),     # 1TB > 2x
+                         item("C", 1100, 1000), item("C 500GB", 600, 500, par="C"))     # meio-termo
+        self.assertIn("⚖️ 500GB OU 1TB? quanto custa a mais o dobro de espaço", txt)
+        self.assertIn("• A: +R$ 300 (+43%) → ✅ vale o 1TB", txt)
+        self.assertIn("• B: +R$ 700 (+117%) → ✅ vale o 500GB", txt)
+        self.assertIn("• C: +R$ 500 (+83%) → ➖ tanto faz", txt)
 
-    def test_par_aproximado(self):
-        txt, _ = self.cb(item("P", 800, 1000), item("E10 500GB", 450, 500, par="P", aprox=True))
-        self.assertIn("E10 500GB ≈× 1TB", txt)
+    def test_niveis_de_velocidade(self):
+        for vel, texto in ((600, "mais simples, suficiente para backup e arquivos"),
+                           (1050, "boa para backup e uso diário"), (2000, "das mais rápidas")):
+            with self.subTest(vel=vel):
+                txt, _ = self.cb(item("V", 900, 1000, vel=vel), item("W 500GB", 800, 500))
+                self.assertIn(texto, txt)
 
-    def test_rapido_mais_em_conta(self):
+    def test_rapido(self):
         txt, r = self.cb(item("Lento", 900, 1000, vel=1050), item("Rapido", 1200, 1000, vel=2000),
                          item("Rapido 500GB", 700, 500, par="Rapido", vel=2000))
         self.assertEqual(r["rapido"], "Rapido")
-        self.assertIn("⚡ Rápido (≥2.000 MB/s) mais em conta: Rapido 1TB — R$ 1.200/TB", txt)
-        self.assertIn("🏆 Melhor custo/TB: Lento 1TB — R$ 900/TB (R$ 900,00 · Loja, 1.050 MB/s)", txt)
+        self.assertIn("⚡ Precisa de velocidade? Rapido 1TB (2.000 MB/s) por R$ 1.200 na Loja", txt)
 
-    def test_par_sem_preco_nao_quebra(self):
-        txt, _ = self.cb(item("Z", 1000, 1000), item("W 500GB", 500, 500, par="Inexistente"))
-        self.assertIn("Sem pares 500GB × 1TB com preço", txt)
-        self.assertIn("🏆", txt)
+    def test_sem_pares(self):
+        txt, r = self.cb(item("Z", 1000, 1000), item("W 500GB", 500, 500, par="Inexistente"))
+        self.assertIn("Sem os dois tamanhos do mesmo modelo com preço nesta rodada.", txt)
+        self.assertEqual(r["pares"], 0)
+        self.assertIn("⭐", txt)
+
+    def test_texto_curto(self):
+        txt, _ = self.cb(item("A", 1000, 1000, vel=1050), item("A 500GB", 700, 500, par="A", vel=1050),
+                         item("F", 1500, 1000, vel=2000))
+        self.assertLessEqual(len(txt.splitlines()), 10)
 
 
 # ------------------------------------------------------------------ ponta a ponta com a config real
 class TestPontaAPonta(unittest.TestCase):
-    def test_20_modelos_mensagem_completa_e_dentro_do_limite(self):
+    def test_todos_os_modelos_mensagem_completa_e_dentro_do_limite(self):
         cfg = json.loads(json.dumps(CFG))
         cfg["descoberta"]["ativa"] = False
         precos = {}
@@ -170,11 +182,10 @@ class TestPontaAPonta(unittest.TestCase):
         txt = monitor.texto_visivel("\n\n".join(blocos))
         self.assertIn("💾 1TB", txt)
         self.assertIn("💾 500GB", txt)
-        self.assertIn("CUSTO-BENEFÍCIO", txt)
-        self.assertEqual(txt.count("→ "), 6)               # 6 pares 500GB × 1TB
-        self.assertIn("Recomendação", txt)
+        self.assertIn("⭐ MELHOR CUSTO-BENEFÍCIO DESTA RODADA", txt)
+        self.assertEqual(txt.count(" → ✅") + txt.count(" → ➖"), 6)   # 6 pares 500GB × 1TB
         ranking = [b for b in extras["botoes"] if b[0]["text"][:1] in "🥇🥈🥉" or b[0]["text"][0].isdigit()]
-        self.assertEqual(len(ranking), 20)                     # 1 botão por modelo (+ botões de alerta no topo)
+        self.assertEqual(len(ranking), len(CFG["produtos"]))   # 1 botão por modelo (+ botões de alerta no topo)
         self.assertLessEqual(len(monitor.dividir_mensagem(blocos)), 2)
 
 
