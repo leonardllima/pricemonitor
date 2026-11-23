@@ -74,7 +74,7 @@
       ]
     },
     "SanDisk Extreme PRO": {
-      "atualizado": "2026-11-22 07:20",
+      "atualizado": "2026-11-23 07:40",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -87,24 +87,28 @@
       ]
     },
     "SanDisk Portable": {
-      "atualizado": "2026-11-22 07:20",
+      "atualizado": "2026-11-23 07:40",
       "ofertas": [
-        {
-          "loja": "KaBuM!",
-          "url": "https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25"
-        },
         {
           "loja": "KaBuM!",
           "url": "https://www.kabum.com.br/produto/1020602/sandisk-ssd-portatil-de-1-tb-ate-800-mb-s-usb-c-usb-3-2-geracao-2-firmware-atualizado-unidade-de-estado-solido-externa-sdssde30-1t00-g26"
         },
         {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/1002656/ssd-portatil-sandisk-fifa-world-cup-2026-edition-1tb-usb-3-2-resistente-a-quedas-sdssde30f-1t00-g25"
+        },
+        {
           "loja": "Amazon",
           "url": "https://www.amazon.com.br/dp/B0C5JQ68FY"
+        },
+        {
+          "loja": "Terabyte",
+          "url": "https://www.terabyteshop.com.br/produto/42345/ssd-externo-portatil-sandisk-1tb-usb-c-leitura-600mbs-sdssde10-1t00-g25"
         }
       ]
     },
     "Crucial X9": {
-      "atualizado": "2026-11-22 07:20",
+      "atualizado": "2026-11-23 07:40",
       "ofertas": []
     },
     "Crucial X9 Pro": {
@@ -125,6 +129,6 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-23 05:17",
+  "ultima_execucao": "2026-11-23 07:40",
   "versao_descoberta": 2
 }
