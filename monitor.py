@@ -339,13 +339,26 @@ def canonico(url_relativa, base):
     return url.split("#")[0].split("?")[0]
 
 
+_RE_NAO_PRODUTO = re.compile(r"/(busca|search|s|pesquisa|categoria|categorias|departamento|departamentos|"
+                             r"marca|marcas|lista|colecao|colecoes|collections|login|carrinho|cart|conta|ajuda)(/|$)",
+                             re.I)
+
+
 def extrair_candidatos(html_txt, loja_cfg, produto, limite=3):
     """Acha links de produto na página de busca e filtra pelos termos do modelo."""
     bruto = html.unescape(html_txt or "").replace("\\u002F", "/").replace("\\/", "/")
     bruto = unquote(bruto)
     vistos, candidatos = set(), []
-    for m in re.finditer(loja_cfg["padrao"], bruto, re.I):
-        trecho = m.group(0)
+    generico = loja_cfg.get("padrao") == "generico"
+    if generico:   # qualquer link do próprio site (usado em lojas sem padrão conhecido)
+        dom = re.escape(dominio(loja_cfg["base"]))
+        padrao = rf"""href=["'](?:https?://(?:www\.)?{dom})?(/[^"'#?\s<>]{{12,}})"""
+    else:
+        padrao = loja_cfg["padrao"]
+    for m in re.finditer(padrao, bruto, re.I):
+        trecho = m.group(1) if generico else m.group(0)
+        if generico and _RE_NAO_PRODUTO.search(trecho):
+            continue
         url = canonico(trecho, loja_cfg["base"])
         if url in vistos:
             continue
@@ -370,6 +383,9 @@ class Coletor:
         self.falhas_direto = Counter()
         self.falhas_total = Counter()
         self.cache = {}
+        self.pausadas = set()        # lojas em pausa automática (bloqueando em várias execuções)
+        self.sucessos = Counter()    # páginas úteis por loja nesta execução
+        self.bloqueios = Counter()   # bloqueios por loja nesta execução
 
     # ---- camada 1: acesso direto com assinatura de navegador
     def baixar(self, url, tentativas=2):
@@ -380,10 +396,10 @@ class Coletor:
                 if navegador:
                     if self.sessao is None or i > 0:
                         self.sessao = navegador.Session(impersonate=perfis[i % len(perfis)])
-                    r = self.sessao.get(url, timeout=30,
+                    r = self.sessao.get(url, timeout=20,
                                         headers={"Accept-Language": HEADERS["Accept-Language"]})
                 else:
-                    r = requests.get(url, headers=HEADERS, timeout=25)
+                    r = requests.get(url, headers=HEADERS, timeout=20)
                 if r.status_code == 200:
                     return r.text, None
                 erro = f"HTTP {r.status_code}"
@@ -391,6 +407,8 @@ class Coletor:
                     break
             except Exception as e:
                 erro = str(e)[:100]
+                if "timed out" in erro.lower() or "timeout" in erro.lower():
+                    break            # site que trava não melhora na 2ª tentativa: economiza tempo
             pausa(2 + 3 * i)
         return None, erro
 
@@ -465,6 +483,8 @@ class Coletor:
         Retorna (resultado|None, motivo). Só conta como bloqueio quando nenhuma camada
         conseguiu uma página utilizável (erro de rede, 403, desafio anti-robô)."""
         dom = dominio(url)
+        if dom in self.pausadas:
+            return None, "pausado (loja bloqueando o GitHub)"
         if self.bloqueada(url):
             return None, "pulado (loja bloqueou nesta execução)"
 
@@ -485,6 +505,7 @@ class Coletor:
                     if nome == "direto":
                         self.falhas_direto[dom] = 0
                     self.falhas_total[dom] = 0
+                    self.sucessos[dom] += 1
                     return resultado, (metodo if nome == "direto" else f"{metodo} pelo {nome}")
                 so_bloqueios = False          # página normal, só sem o dado: tenta a próxima camada
                 motivos.append(f"{nome}: {metodo}")
@@ -499,6 +520,7 @@ class Coletor:
 
         if so_bloqueios:
             self.falhas_total[dom] += 1
+            self.bloqueios[dom] += 1
         return None, " | ".join(motivos)
 
     # ---- preço de uma página de produto
@@ -592,6 +614,49 @@ def ler_estado(caminho=None):
 def gravar_estado(estado, caminho=None):
     Path(caminho or ESTADO).write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n",
                                        encoding="utf-8")
+
+
+# ============================================================ pausa automática de lojas
+def nomes_lojas(cfg):
+    """domínio -> nome da loja (para mensagens)."""
+    nomes = {}
+    for l in cfg.get("lojas_busca", []):
+        nomes[dominio(l["base"])] = l["loja"]
+    for p in cfg.get("produtos", []):
+        for o in p.get("ofertas", []):
+            if (o.get("url") or "").startswith("http"):
+                nomes.setdefault(dominio(o["url"]), o["loja"])
+    return nomes
+
+
+def aplicar_pausas(estado, coletor, agora):
+    """Coloca no coletor as lojas cuja pausa ainda não venceu. Devolve os domínios pausados."""
+    for dom, info in estado.get("lojas", {}).items():
+        if info.get("pausa_ate") and info["pausa_ate"] > agora:
+            coletor.pausadas.add(dom)
+    return sorted(coletor.pausadas)
+
+
+def atualizar_pausas(cfg, estado, coletor, agora):
+    """Loja que só bloqueou em N execuções seguidas entra em pausa por X horas.
+    Ao voltar da pausa, se bloquear de novo, volta direto para a pausa. Devolve os domínios pausados agora."""
+    limite = cfg.get("pausa_apos_falhas", 3)
+    horas = cfg.get("pausa_loja_horas", 24)
+    lojas = estado.setdefault("lojas", {})
+    novas = []
+    for dom in set(coletor.sucessos) | set(coletor.bloqueios):
+        info = lojas.setdefault(dom, {"falhas_seguidas": 0})
+        info.pop("pausa_ate", None)
+        if coletor.sucessos[dom]:
+            info["falhas_seguidas"] = 0
+            info["reincidente"] = False
+            continue
+        info["falhas_seguidas"] = info.get("falhas_seguidas", 0) + 1
+        if info["falhas_seguidas"] >= limite or info.get("reincidente"):
+            fim = datetime.strptime(agora, FORMATO_DATA) + timedelta(hours=horas)
+            info.update({"pausa_ate": fim.strftime(FORMATO_DATA), "falhas_seguidas": 0, "reincidente": True})
+            novas.append(dom)
+    return novas
 
 
 # ============================================================ descoberta automática
@@ -771,138 +836,149 @@ def secoes(com_preco, capacidades=None):
     return [(cap, [m for m in com_preco if (m.get("cap") or 0) == cap]) for cap in caps]
 
 
+def reais(v):
+    """1039.99 -> 'R$ 1.040' (forma curta, para leitura rápida)."""
+    return f"R$ {brl_curto(v)}"
+
+
+def nome_base(m):
+    """Nome sem a capacidade (dentro da seção '1TB' não precisa repetir '1TB')."""
+    if not m.get("cap"):
+        return m["rotulo"]
+    rot = rotulo_capacidade(m["cap"])
+    base = re.sub(rf"\s*\b{re.escape(rot)}\b", "", m["nome"], flags=re.I).strip()
+    return base or m["rotulo"]
+
+
 def custo_beneficio(com_preco, capacidades=None):
-    """Compara cada 500GB com o 1TB do mesmo modelo e indica o melhor custo-benefício.
-    Devolve (linhas_html, resumo_dict). Só atua quando há mais de uma capacidade
-    (com preço, ou configurada em `capacidades`)."""
+    """Bloco final: o melhor custo-benefício da rodada (com explicação) e o '500GB ou 1TB?'.
+    Devolve (blocos_html, resumo). Só atua quando há mais de uma capacidade."""
     modelos = [m for m in com_preco if m.get("cap")]
     if len({m["cap"] for m in modelos} | set(capacidades or [])) < 2:
         return [], {}
     if not modelos:
-        return ["💡 <b>CUSTO-BENEFÍCIO</b>", "<i>Aguardando os primeiros preços para comparar.</i>"], {}
-    por_nome = {m["nome"]: m for m in modelos}
+        return ["⭐ <b>MELHOR CUSTO-BENEFÍCIO DESTA RODADA</b>\n<i>Aguardando os primeiros preços.</i>"], {}
     for m in modelos:
         m["preco"] = m["ofertas_ok"][0]["preco"]
         m["por_tb"] = m["preco"] / (m["cap"] / 1000)
-
-    linhas = ["💡 <b>CUSTO-BENEFÍCIO</b> <i>(preço por TB)</i>"]
-    pares = 0
-    for m in sorted(modelos, key=lambda x: x["rotulo"]):
-        par = por_nome.get(m.get("par") or "")
-        if not par:
-            continue
-        pares += 1
-        menor, maior = (m, par) if m["cap"] < par["cap"] else (par, m)
-        razao = maior["por_tb"] / menor["por_tb"]
-        dif = maior["preco"] - menor["preco"]
-        aprox = "≈" if m.get("par_aproximado") else ""
-        if razao <= 0.85:
-            veredito = f"✅ {rotulo_capacidade(maior['cap'])} ({round((1 - razao) * 100)}% menos/TB)"
-        elif razao >= 1:
-            veredito = f"✅ {rotulo_capacidade(menor['cap'])} ({round((razao - 1) * 100)}% menos/TB)"
-        else:
-            veredito = f"⚖️ empate ({round((1 - razao) * 100)}% menos/TB no {rotulo_capacidade(maior['cap'])})"
-        linhas.append(f"• {html.escape(menor['rotulo'])} {aprox}× {rotulo_capacidade(maior['cap'])}: "
-                      f"{brl_curto(menor['preco'])} × {brl_curto(maior['preco'])} (+{brl_curto(dif)}) → {veredito}")
-    if not pares:
-        linhas.append("<i>Sem pares 500GB × 1TB com preço nesta consulta.</i>")
-
-    melhor = min(modelos, key=lambda x: x["por_tb"])
+    por_custo = sorted(modelos, key=lambda x: x["por_tb"])
+    melhor = por_custo[0]
     barato = min(modelos, key=lambda x: x["preco"])
     rapidos = [x for x in modelos if (x.get("vel") or 0) >= 2000]
     rapido = min(rapidos, key=lambda x: x["por_tb"]) if rapidos else None
+    o = melhor["ofertas_ok"][0]
+    vel = lambda x: f"{x['vel']:,}".replace(",", ".") + " MB/s"
 
-    def oferta(x):
-        o = x["ofertas_ok"][0]
-        return f"{brl(o['preco'])} · {link(o['loja'], o['url'])}"
-
-    vel = lambda x: (", " + f"{x['vel']:,}".replace(",", ".") + " MB/s") if x.get("vel") else ""
-    linhas.append(f"🏆 Melhor custo/TB: <b>{html.escape(melhor['rotulo'])}</b> — "
-                  f"R$ {brl_curto(melhor['por_tb'])}/TB ({oferta(melhor)}{vel(melhor)})")
-    if barato is not melhor:
-        extra = round((barato["por_tb"] / melhor["por_tb"] - 1) * 100)
-        linhas.append(f"💰 Menor desembolso: <b>{html.escape(barato['rotulo'])}</b> — {oferta(barato)} "
-                      f"<i>(paga {extra}% a mais por TB)</i>")
-    if rapido and rapido is not melhor:
-        linhas.append(f"⚡ Rápido (≥2.000 MB/s) mais em conta: <b>{html.escape(rapido['rotulo'])}</b> — "
-                      f"R$ {brl_curto(rapido['por_tb'])}/TB ({oferta(rapido)})")
-
-    if barato is not melhor and barato["preco"] < melhor["preco"]:
-        economia = melhor["preco"] - barato["preco"]
-        frase = (f"leve o <b>{html.escape(melhor['rotulo'])}</b>: é o menor preço por TB. "
-                 f"O {html.escape(barato['rotulo'])} só compensa se o limite for o orçamento "
-                 f"(economiza {brl(economia)}, mas entrega menos espaço por real).")
+    # ---- destaque + explicação
+    linhas = ["⭐ <b>MELHOR CUSTO-BENEFÍCIO DESTA RODADA</b>",
+              f"<b>{html.escape(melhor['rotulo'])} — {brl(o['preco'])}</b> na {link(o['loja'], o['url'])}"]
+    motivo = f"✔️ É o que dá mais espaço por real: <b>{reais(melhor['por_tb'])} por TB</b>"
+    if len(por_custo) > 1:
+        seg = por_custo[1]
+        motivo += f" (o 2º, {html.escape(seg['rotulo'])}, sai {reais(seg['por_tb'])}/TB)"
+    linhas.append(motivo + ".")
+    if melhor.get("vel"):
+        v = melhor["vel"]
+        nivel = ("das mais rápidas" if v >= 2000 else "boa para backup e uso diário" if v >= 900
+                 else "mais simples, suficiente para backup e arquivos")
+        linhas.append(f"✔️ Velocidade de {vel(melhor)} — {nivel}.")
+    if barato is melhor:
+        linhas.append("✔️ E ainda é o mais barato da rodada.")
     else:
-        frase = (f"o <b>{html.escape(melhor['rotulo'])}</b> é ao mesmo tempo o mais barato e o de "
-                 f"menor preço por TB — melhor escolha agora.")
-    linhas.append(f"💬 <b>Recomendação:</b> {frase}")
-    return linhas, {"melhor": melhor["nome"], "barato": barato["nome"],
-                    "rapido": rapido["nome"] if rapido else None}
+        dif = round((barato["por_tb"] / melhor["por_tb"] - 1) * 100)
+        lb = barato["ofertas_ok"][0]
+        linhas.append(f"💰 Quer gastar menos? {html.escape(barato['rotulo'])} por {reais(barato['preco'])} "
+                      f"na {link(lb['loja'], lb['url'])} — mas paga {dif}% a mais por TB.")
+    if rapido and rapido is not melhor:
+        lr = rapido["ofertas_ok"][0]
+        linhas.append(f"⚡ Precisa de velocidade? {html.escape(rapido['rotulo'])} ({vel(rapido)}) por "
+                      f"{reais(rapido['preco'])} na {link(lr['loja'], lr['url'])}")
+    blocos = ["\n".join(linhas)]
+
+    # ---- 500GB ou 1TB?
+    por_nome = {m["nome"]: m for m in modelos}
+    pares = []
+    for m in modelos:
+        par = por_nome.get(m.get("par") or "")
+        if par:
+            pequeno, grande = (m, par) if m["cap"] < par["cap"] else (par, m)
+            pares.append((pequeno, grande))
+    linhas = ["⚖️ <b>500GB OU 1TB?</b> <i>quanto custa a mais o dobro de espaço</i>"]
+    for pequeno, grande in sorted(pares, key=lambda p: nome_base(p[1])):
+        razao = grande["por_tb"] / pequeno["por_tb"]
+        dif = grande["preco"] - pequeno["preco"]
+        if razao <= 0.85:
+            veredito = f"✅ vale o {rotulo_capacidade(grande['cap'])}"
+        elif razao >= 1:
+            veredito = f"✅ vale o {rotulo_capacidade(pequeno['cap'])}"
+        else:
+            veredito = "➖ tanto faz"
+        pct = round(dif / pequeno["preco"] * 100)
+        linhas.append(f"• {html.escape(nome_base(grande))}: +{reais(dif)} (+{pct}%) → {veredito}")
+    if not pares:
+        linhas.append("<i>Sem os dois tamanhos do mesmo modelo com preço nesta rodada.</i>")
+    blocos.append("\n".join(linhas))
+    return blocos, {"melhor": melhor["nome"], "barato": barato["nome"],
+                    "rapido": rapido["nome"] if rapido else None, "pares": len(pares)}
 
 
-def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2, estilo="medalhas"):
+def montar_mensagem(titulo, agora, resultados, alertas, falhas, outras_lojas=2, estilo="medalhas", pausadas=None):
     blocos = [f"📊 <b>{html.escape(titulo)}</b> · {agora[8:10]}/{agora[5:7]} {agora[11:16]}"]
 
     if alertas:
-        linhas = ["🔔 <b>ALERTAS</b>"]
+        linhas = ["🔔 <b>Alertas</b>"]
         for a in alertas:
-            linhas.append(f"{a['icones']} <b>{html.escape(a['produto'])}</b> · {link(a['loja'], a['url'])} "
-                          f"<b>{brl(a['preco'])}</b> — {html.escape(a['detalhe'])}")
+            linhas.append(f"{a['icones']} <b>{html.escape(a['produto'])}</b> · <b>{reais(a['preco'])}</b> "
+                          f"na {link(a['loja'], a['url'])} — {html.escape(a['detalhe'])}")
         blocos.append("\n".join(linhas))
 
     com_preco, sem_estoque = ranking_modelos(resultados)
     capacidades = {r.get("cap") for r in resultados if r.get("cap")}
     capacidades = capacidades if len(capacidades) > 1 else set()
     grupos = secoes(com_preco, capacidades)
+    por_secao = len(grupos) > 1
     for cap, modelos in grupos:
-        linhas = []
-        if len(grupos) > 1:
-            linhas.append(f"💾 <b>{rotulo_capacidade(cap)}:</b>\n")
-        sem_est_cap = [m for m in sem_estoque if (m.get("cap") or 0) == cap] if len(grupos) > 1 else []
+        linhas = [f"💾 <b>{rotulo_capacidade(cap)}</b>"] if por_secao else []
+        sem_est = [m for m in sem_estoque if (m.get("cap") or 0) == cap] if por_secao else sem_estoque
         if not modelos:
             sem_link = [r for r in resultados if (r.get("cap") or 0) == cap and not r["ofertas"]]
-            linhas.append("<i>Sem preço nesta consulta"
-                          + (" — busca dos links em andamento." if sem_link else ".") + "</i>")
-            if sem_est_cap:
-                linhas.append("⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_est_cap) + "</i>")
-            blocos.append("\n".join(linhas))
-            continue
-        menor = modelos[0]["ofertas_ok"][0]["preco"]
+            linhas.append("<i>Sem preço nesta rodada" + (" — buscando os links." if sem_link else ".") + "</i>")
         for i, m in enumerate(modelos):
             ofertas = m["ofertas_ok"]
             melhor = ofertas[0]
-            marca = marcador(i, estilo)
             seta = ""
-            if melhor["ultimo"] and abs(melhor["preco"] - melhor["ultimo"]) >= 0.01:
+            if melhor["ultimo"] and abs(melhor["preco"] - melhor["ultimo"]) >= 1:
                 dif = melhor["preco"] - melhor["ultimo"]
                 seta = f" {'⬇️' if dif < 0 else '⬆️'}{brl_curto(abs(dif))}"
-            extra = f" <i>(+{brl_curto(melhor['preco'] - menor)})</i>" if i > 0 else ""
-            linhas.append(f"{marca} <b>{html.escape(m['rotulo'])}</b> — <b>{brl(melhor['preco'])}</b> · "
-                          f"{link(melhor['loja'], melhor['url'])}{seta}{extra}")
+            nome = nome_base(m) if por_secao else m["rotulo"]
+            linhas.append(f"{marcador(i, estilo)} <b>{html.escape(nome)}</b> · <b>{reais(melhor['preco'])}</b> · "
+                          f"{link(melhor['loja'], melhor['url'])}{seta}")
             resto = ofertas[1:]
             if resto and outras_lojas:
                 itens = [f"{link(o['loja'], o['url'])} {brl_curto(o['preco'])}" for o in resto[:outras_lojas]]
                 if len(resto) > outras_lojas:
                     itens.append(f"+{len(resto) - outras_lojas}")
                 linhas.append("      ↳ " + " · ".join(itens))
-        if sem_est_cap:
-            linhas.append("⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_est_cap) + "</i>")
-        blocos.append("\n".join(linhas))
-    if sem_estoque and len(grupos) <= 1:
-        txt = "⛔ <i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_estoque) + "</i>"
-        if grupos:
-            blocos[-1] += "\n" + txt
-        else:
-            blocos.append(txt)
+        if sem_est:
+            nomes = [nome_base(m) if por_secao else m["rotulo"] for m in sem_est]
+            linhas.append("<i>Sem estoque: " + ", ".join(html.escape(n) for n in nomes) + "</i>")
+        if linhas:
+            blocos.append("\n".join(linhas))
+    if not grupos and sem_estoque:
+        blocos.append("<i>Sem estoque: " + ", ".join(html.escape(m["rotulo"]) for m in sem_estoque) + "</i>")
 
     cb, _ = custo_beneficio(com_preco, capacidades)
-    if cb:
-        blocos.append("\n".join(cb))
+    blocos += cb
 
+    rodape = []
     if falhas:
         cont = Counter(falhas)
-        txt = " · ".join(f"{html.escape(l)}{' ×' + str(n) if n > 1 else ''}" for l, n in cont.most_common())
-        blocos.append(f"<i>⚠️ Sem leitura: {txt}</i>")
+        rodape.append("Sem leitura: " + ", ".join(f"{html.escape(l)}{' ×' + str(n) if n > 1 else ''}"
+                                                  for l, n in cont.most_common()))
+    if pausadas:
+        rodape.append("Em pausa: " + html.escape(", ".join(pausadas)))
+    if rodape:
+        blocos.append("<i>ℹ️ " + " · ".join(rodape) + "</i>")
     return blocos
 
 
@@ -980,7 +1056,9 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
 
             if preco is None and disp is None:
                 print(f"✗ {nome} | {loja}: {metodo}")
-                if "pulado" not in metodo or loja not in falhas:
+                if metodo.startswith("pausado"):
+                    pass
+                elif "pulado" not in metodo or loja not in falhas:
                     falhas.append(loja)
                 continue
             if preco is None:
@@ -1001,14 +1079,14 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
             if alvo and preco <= alvo and (ultimo_disp is None or ultimo_disp > alvo):
                 icones += "🎯"
                 if alvo_min and preco < alvo_min:
-                    detalhes.append(f"abaixo da faixa-alvo {brl_curto(alvo_min)}–{brl_curto(alvo)}")
+                    detalhes.append(f"abaixo da faixa {brl_curto(alvo_min)}–{brl_curto(alvo)}")
                 elif alvo_min:
-                    detalhes.append(f"na faixa-alvo {brl_curto(alvo_min)}–{brl_curto(alvo)}")
+                    detalhes.append(f"na faixa {brl_curto(alvo_min)}–{brl_curto(alvo)}")
                 else:
-                    detalhes.append(f"alvo {brl(alvo)}")
+                    detalhes.append(f"atingiu o alvo de {reais(alvo)}")
             if ultimo_disp and preco <= ultimo_disp * (1 - queda_pct / 100):
                 icones += "📉"
-                detalhes.append(f"-{(1 - preco / ultimo_disp) * 100:.0f}% (era {brl_curto(ultimo_disp)})")
+                detalhes.append(f"caiu {(1 - preco / ultimo_disp) * 100:.0f}% (era {reais(ultimo_disp)})")
             if minimo_hist and preco <= minimo_hist * (1 - margem_minimo / 100):
                 icones += "🏆"
                 detalhes.append("menor preço já visto")
@@ -1021,7 +1099,7 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
             icones = "".join(dict.fromkeys(c for a in alertas_modelo for c in a["icones"]))
             detalhes = list(dict.fromkeys(principal["detalhes"] + [d for a in alertas_modelo for d in a["detalhes"]
                                                                    if not d.startswith(("na faixa", "abaixo da faixa",
-                                                                                        "alvo", "-"))]))
+                                                                                        "atingiu", "caiu"))]))
             alertas.append({**{k: v for k, v in principal.items() if k != "detalhes"},
                             "icones": icones, "detalhe": " · ".join(detalhes)})
 
@@ -1030,8 +1108,10 @@ def executar(cfg, historico, coletor, agora, estado=None, extras=None):
                            "par_aproximado": prod.get("par_aproximado", False), "vel": prod.get("leitura_mbs")})
 
     estilo = cfg.get("estilo_ranking", "medalhas")
+    nomes = nomes_lojas(cfg)
+    pausadas = sorted({nomes.get(d, d) for d in getattr(coletor, "pausadas", set())})
     blocos = montar_mensagem(cfg.get("titulo", "Monitor de preços"), agora, resultados, alertas, falhas,
-                             cfg.get("outras_lojas_por_modelo", 2), estilo)
+                             cfg.get("outras_lojas_por_modelo", 2), estilo, pausadas)
     if extras is not None:
         b = cfg.get("botoes", {"ativo": True})
         extras["botoes"] = (montar_botoes(resultados, alertas, b.get("alternativas_por_modelo", 0), estilo)
@@ -1064,6 +1144,9 @@ def main(caminho_config=None, caminho_historico=None, coletor=None, caminho_esta
     coletor = coletor or Coletor(cfg.get("usar_leitor_reserva", False),
                                  cfg.get("usar_navegador_real", True),
                                  cfg.get("dominios_navegador", ["*"]))
+    pausadas = aplicar_pausas(estado, coletor, agora)
+    if pausadas:
+        print("⏸️ Lojas em pausa: " + ", ".join(pausadas))
     try:
         estado = descobrir(cfg, estado, coletor, agora)
         extras = {}
@@ -1071,6 +1154,8 @@ def main(caminho_config=None, caminho_historico=None, coletor=None, caminho_esta
     finally:
         coletor.fechar()
 
+    for dom in atualizar_pausas(cfg, estado, coletor, agora):
+        print(f"⏸️ {dom} entrou em pausa (bloqueou em várias execuções seguidas).")
     estado["ultima_execucao"] = agora
     gravar_estado(estado, caminho_estado)
     if novas:
