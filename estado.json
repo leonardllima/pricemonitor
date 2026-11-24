@@ -44,7 +44,7 @@
       ]
     },
     "SanDisk Portable": {
-      "atualizado": "2026-11-23 13:46",
+      "atualizado": "2026-11-24 18:24",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -57,7 +57,7 @@
       ]
     },
     "SanDisk Portable V3": {
-      "atualizado": "2026-11-23 13:46",
+      "atualizado": "2026-11-24 18:24",
       "ofertas": [
         {
           "loja": "Amazon",
@@ -66,7 +66,7 @@
       ]
     },
     "SanDisk Extreme V3": {
-      "atualizado": "2026-11-23 13:46",
+      "atualizado": "2026-11-24 18:24",
       "ofertas": [
         {
           "loja": "Amazon",
@@ -75,7 +75,7 @@
       ]
     },
     "Samsung T7 500GB": {
-      "atualizado": "2026-11-23 13:46",
+      "atualizado": "2026-11-24 18:24",
       "ofertas": []
     },
     "SanDisk Portable E10 500GB": {
@@ -189,7 +189,7 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-24 15:50",
+  "ultima_execucao": "2026-11-24 18:24",
   "versao_descoberta": 3,
   "lojas": {
     "mercadolivre.com.br": {
@@ -199,8 +199,8 @@
     },
     "casasbahia.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "kingstonstore.com.br": {
       "falhas_seguidas": 0,
@@ -208,23 +208,23 @@
     },
     "carrefour.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "submarino.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "lista.mercadolivre.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "magazineluiza.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "kabum.com.br": {
       "falhas_seguidas": 0,
@@ -236,8 +236,8 @@
     },
     "girafa.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "amazon.com.br": {
       "falhas_seguidas": 0,
@@ -245,13 +245,13 @@
     },
     "pontofrio.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "extra.com.br": {
       "falhas_seguidas": 0,
-      "pausa_ate": "2026-11-24 17:37",
-      "reincidente": true
+      "reincidente": true,
+      "pausa_ate": "2026-11-25 18:24"
     },
     "kalunga.com": {
       "falhas_seguidas": 0,
