@@ -163,20 +163,24 @@
       ]
     },
     "SanDisk Extreme PRO": {
-      "atualizado": "2026-11-23 15:56",
+      "atualizado": "2026-11-25 01:23",
       "ofertas": [
         {
           "loja": "KaBuM!",
           "url": "https://www.kabum.com.br/produto/1020608/sandisk-ssd-portatil-extreme-pro-de-1-tb-ate-2000-mb-s-usb-c-usb-3-2-gen-2x2-unidade-de-estado-solido-externa-sdssde81-1t00-g25-preto"
+        },
+        {
+          "loja": "Amazon",
+          "url": "https://www.amazon.com.br/dp/B08GV9M64L"
         }
       ]
     },
     "Crucial X9 Pro": {
-      "atualizado": "2026-11-23 15:56",
+      "atualizado": "2026-11-25 01:23",
       "ofertas": []
     },
     "Crucial X10 Pro": {
-      "atualizado": "2026-11-23 15:56",
+      "atualizado": "2026-11-25 01:23",
       "ofertas": [
         {
           "loja": "KaBuM!",
@@ -185,7 +189,7 @@
       ]
     },
     "WD My Passport SSD": {
-      "atualizado": "2026-11-23 15:56",
+      "atualizado": "2026-11-25 01:23",
       "ofertas": []
     },
     "Crucial X9": {
@@ -193,7 +197,7 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-25 00:01",
+  "ultima_execucao": "2026-11-25 01:23",
   "versao_descoberta": 3,
   "lojas": {
     "mercadolivre.com.br": {
