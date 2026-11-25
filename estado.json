@@ -193,11 +193,11 @@
       "ofertas": []
     },
     "Crucial X9": {
-      "atualizado": "2026-11-23 17:37",
+      "atualizado": "2026-11-25 07:31",
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-25 01:23",
+  "ultima_execucao": "2026-11-25 07:31",
   "versao_descoberta": 3,
   "lojas": {
     "mercadolivre.com.br": {
@@ -248,7 +248,7 @@
       "pausa_ate": "2026-11-25 18:24"
     },
     "amazon.com.br": {
-      "falhas_seguidas": 0,
+      "falhas_seguidas": 1,
       "reincidente": false
     },
     "pontofrio.com.br": {
