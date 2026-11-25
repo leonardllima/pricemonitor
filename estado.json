@@ -79,7 +79,7 @@
       "ofertas": []
     },
     "SanDisk Portable E10 500GB": {
-      "atualizado": "2026-11-23 13:58",
+      "atualizado": "2026-11-24 22:06",
       "ofertas": [
         {
           "loja": "Terabyte",
@@ -88,7 +88,7 @@
       ]
     },
     "SanDisk Portable V3 500GB": {
-      "atualizado": "2026-11-23 13:58",
+      "atualizado": "2026-11-24 22:06",
       "ofertas": [
         {
           "loja": "Amazon",
@@ -97,17 +97,21 @@
       ]
     },
     "SanDisk Extreme 500GB": {
-      "atualizado": "2026-11-23 13:58",
+      "atualizado": "2026-11-24 22:06",
       "ofertas": [
         {
-          "loja": "Amazon",
-          "url": "https://www.amazon.com.br/dp/B08GTXVG9P"
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/1054889/ssd-externo-sandisk-500gb-portatil-extreme-preto-sdssde61-500g-g25-"
         }
       ]
     },
     "SanDisk Extreme V3 500GB": {
-      "atualizado": "2026-11-23 13:58",
+      "atualizado": "2026-11-24 22:06",
       "ofertas": [
+        {
+          "loja": "KaBuM!",
+          "url": "https://www.kabum.com.br/produto/1088719/ssd-portatil-sandisk-extreme-500gb-sdssde70-500g-g25-nvme-usb-c-ip55-resistente-a-agua-e-queda-preto"
+        },
         {
           "loja": "Terabyte",
           "url": "https://www.terabyteshop.com.br/produto/43774/ssd-externo-portatil-sandisk-extreme-500gb-usb-c-leitura-2000mbs-sdssde70-500g-g25"
@@ -189,13 +193,13 @@
       "ofertas": []
     }
   },
-  "ultima_execucao": "2026-11-24 18:24",
+  "ultima_execucao": "2026-11-24 22:06",
   "versao_descoberta": 3,
   "lojas": {
     "mercadolivre.com.br": {
       "falhas_seguidas": 0,
       "reincidente": true,
-      "pausa_ate": "2026-11-24 19:35"
+      "pausa_ate": "2026-11-25 22:06"
     },
     "casasbahia.com.br": {
       "falhas_seguidas": 0,
@@ -240,7 +244,7 @@
       "pausa_ate": "2026-11-25 18:24"
     },
     "amazon.com.br": {
-      "falhas_seguidas": 0,
+      "falhas_seguidas": 1,
       "reincidente": false
     },
     "pontofrio.com.br": {
